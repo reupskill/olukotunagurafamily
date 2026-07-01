@@ -1,0 +1,162 @@
+.membership-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 54px 20px;
+}
+
+@media (min-width: 760px) {
+  .membership-section {
+    padding: 84px 26px;
+  }
+}
+
+.steps-heading {
+  text-align: center;
+}
+
+.step-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.step-num {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--gold);
+  color: #3a2b08;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.step-title {
+  margin: 14px 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.step-body {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.features-heading {
+  margin-top: 52px;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.feature-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-title {
+  margin: 14px 0 5px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.feature-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.cta-grid {
+  margin-top: 44px;
+}
+
+.cta-member {
+  background: linear-gradient(135deg, #173d29, #2d6a4f);
+  border-radius: 20px;
+  padding: 30px;
+  color: #dfeee6;
+}
+
+.cta-member h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+  color: #fff;
+}
+
+.cta-member p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 20px;
+  color: #c3ddcd;
+}
+
+.cta-signin {
+  display: inline-block;
+  background: var(--gold);
+  color: #3a2b08;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-new {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.cta-new h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.cta-new p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 18px;
+  color: var(--ink-soft);
+}
+
+.cta-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.cta-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

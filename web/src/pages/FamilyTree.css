@@ -1,0 +1,368 @@
+.tree-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 54px 20px;
+}
+
+@media (min-width: 760px) {
+  .tree-section {
+    padding: 84px 26px;
+  }
+}
+
+/* ---- desktop graph + side panel ---- */
+
+.tree-desktop {
+  display: none;
+}
+
+@media (min-width: 1040px) {
+  .tree-desktop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: start;
+  }
+}
+
+.tree-canvas-wrap {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.tree-canvas-scroll {
+  overflow-x: auto;
+  border-radius: 14px;
+  background-image: linear-gradient(#f4efe4 1px, transparent 1px),
+    linear-gradient(90deg, #f4efe4 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: #fcfaf4;
+}
+
+.tree-canvas {
+  position: relative;
+  width: 1046px;
+  height: 616px;
+}
+
+.tree-canvas svg.tree-links {
+  position: absolute;
+  inset: 0;
+  width: 1046px;
+  height: 616px;
+  pointer-events: none;
+}
+
+.tree-node {
+  position: absolute;
+  width: 152px;
+  min-height: 48px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 8px 12px;
+  transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+
+.tree-node-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.tree-node-sub {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  color: #8a9187;
+  margin-top: 3px;
+  letter-spacing: 0.05em;
+}
+
+.tree-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 12px 8px;
+}
+
+.tree-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tree-legend-swatch-line {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+}
+
+.tree-legend-swatch-box {
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+}
+
+.tree-side-panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  position: sticky;
+  top: 88px;
+}
+
+.tree-panel-sub {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tree-panel-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.12;
+  margin: 8px 0 0;
+  color: var(--ink);
+}
+
+.tree-panel-gen {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  background: var(--cream);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.tree-panel-gen-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.tree-panel-gen-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.tree-panel-story {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 16px 0 0;
+}
+
+.tree-panel-descendants {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 14px;
+}
+
+.tree-panel-descendants-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.tree-panel-descendants-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 5px;
+}
+
+.tree-panel-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  background: var(--green-700);
+  color: #fff;
+  padding: 12px;
+  border-radius: 11px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ---- mobile/tablet outline ---- */
+
+.tree-mobile {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 14px;
+}
+
+@media (min-width: 1040px) {
+  .tree-mobile {
+    display: none;
+  }
+}
+
+.tree-outline-hint {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  padding: 6px 0 14px;
+}
+
+.tree-outline-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.tree-outline-row.selected {
+  background: #fffaf0;
+}
+
+.tree-outline-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tree-outline-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.tree-outline-name {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.tree-outline-sub {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.tree-outline-footnote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 8px 6px 4px;
+}
+
+/* ---- bottom sheet popup (mobile/tablet only) ---- */
+
+.tree-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(16, 30, 20, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@media (min-width: 1040px) {
+  .tree-popup-overlay {
+    display: none;
+  }
+}
+
+.tree-popup-sheet {
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  padding: 20px 22px 28px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 82vh;
+  overflow-y: auto;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.3);
+  animation: sheetUp 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.tree-popup-handle-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.tree-popup-handle {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--line);
+}
+
+.tree-popup-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tree-popup-close {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tree-popup-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 1.12;
+  margin: 6px 0 0;
+  color: var(--ink);
+}
+
+.tree-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 26px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
