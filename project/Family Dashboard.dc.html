@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#cdd6cd;border-radius:8px}
+  input,button,select,textarea{font-family:inherit}
+  @keyframes ofgUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="--green-900:#10301f;--green-800:#173d29;--green-700:#1f5138;--green-600:#2d6a4f;--green-500:#40916c;--green-300:#74c69d;--green-050:#eaf3ec;--gold:#c79a3a;--gold-soft:#f6eccf;--navy:#22405f;--navy-soft:#e3ebf4;--cream:#f5f2ea;--card:#ffffff;--ink:#16241c;--ink-soft:#3c4a42;--muted:#6f7d74;--line:#e8e3d6;--line-soft:#f0ede2;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);height:100vh;overflow:hidden;background:var(--cream);-webkit-font-smoothing:antialiased;">
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;height:100vh;">
+
+  <!-- SIDEBAR -->
+  <aside style="width:252px;flex-shrink:0;background:var(--green-900);display:flex;flex-direction:column;height:100vh;border-right:1px solid rgba(255,255,255,0.04);">
+    <div style="display:flex;align-items:center;gap:11px;padding:20px 18px 16px;">
+      <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#c79a3a" stroke-width="2"/><path d="M24 39 V21" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M24 40c-3 1.6-7 1-10-2 M24 40c3 1.6 7 1 10-2" stroke="#c79a3a" stroke-width="1.5" stroke-linecap="round"/><path d="M24 25 16 18 M24 26 32 19 M24 22 24 13" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="12" r="4" fill="#74c69d"/><circle cx="15" cy="17" r="3.4" fill="#40916c"/><circle cx="33" cy="19" r="3.4" fill="#40916c"/><circle cx="18" cy="23" r="2.8" fill="#74c69d"/><circle cx="30" cy="24" r="2.8" fill="#74c69d"/></svg>
+      <div style="line-height:1.15;">
+        <div style="font-size:13.5px;font-weight:800;letter-spacing:0.04em;color:#fff;">OLUKOTUN AGURA</div>
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.12em;color:#c79a3a;">FAMILY FOUNDATION</div>
+      </div>
+    </div>
+
+    <nav style="flex:1;overflow-y:auto;padding:6px 12px 12px;display:flex;flex-direction:column;gap:2px;">
+      <button onClick="{{ nav.dashboard }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.dashboard }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</button>
+      <button onClick="{{ nav.tree }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.tree }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6 8.4v3a2 2 0 002 2h8a2 2 0 002-2v-3M12 13.4v2.2"/></svg>Family Tree</button>
+      <button onClick="{{ nav.members }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.members }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0M16 6.2a3 3 0 010 5.6M17 13.5c2 .6 3.5 2.3 3.5 4.5"/></svg>Members</button>
+      <button onClick="{{ nav.branches }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.branches }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M6 7.2v9.6M8 6.4c6 0 4 5.6 8 5.6"/></svg>Branches</button>
+      <button onClick="{{ nav.events }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.events }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg>Events</button>
+      <button onClick="{{ nav.announcements }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.announcements }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5a1.5 1.5 0 001.5 1.5H8l8 4V4l-8 4H5.5A1.5 1.5 0 004 9.5zM19 9a4 4 0 010 6"/></svg>Announcements</button>
+      <button onClick="{{ nav.celebrations }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.celebrations }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V12.5a2 2 0 012-2h10a2 2 0 012 2V21zM4 21h16M12 10.5V7M12 7a1.7 1.7 0 11-1.5-2.5C11 3.5 12 2.5 12 2.5s1 1 1.5 2C14 5.5 13 7 12 7z"/></svg>Celebrations</button>
+      <button onClick="{{ nav.remembrance }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.remembrance }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>Remembrance</button>
+      <button onClick="{{ nav.support }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.support }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 13l-2-1.8a2.3 2.3 0 113.2-3.2l.8.8.8-.8A2.3 2.3 0 0117 11M3 13h3l2 3 3-7 2 4h2"/></svg>Support Requests</button>
+      <button onClick="{{ nav.work }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.work }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 012-2h3a2 2 0 012 2v1.5M3 13h18"/></svg>Work Requests</button>
+      <button onClick="{{ nav.donations }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.donations }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16.5 14.5h1.5"/></svg>Donations</button>
+      <div style="height:1px;background:rgba(255,255,255,0.07);margin:8px 6px;"></div>
+      <button onClick="{{ nav.approvals }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.approvals }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2.5H9zM8.5 13l2 2 4-4.5"/></svg>Approvals<span style="margin-left:auto;background:var(--gold);color:#3a2b08;font-size:11px;font-weight:700;border-radius:9px;padding:1px 7px;">4</span></button>
+      <button onClick="{{ nav.reports }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.reports }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-7"/></svg>Reports</button>
+      <button onClick="{{ nav.settings }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:10px 13px;border-radius:10px;border:none;background:{{ navbg.settings }};color:#e4efe7;font-size:14px;font-weight:500;cursor:pointer;text-align:left;" style-hover="background:rgba(255,255,255,0.06)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.5l1.4 2.3 2.6-.6.4 2.7 2.4 1.2-1 2.5 1 2.5-2.4 1.2-.4 2.7-2.6-.6L12 21.5l-1.4-2.3-2.6.6-.4-2.7L5.2 16l1-2.5-1-2.5 2.4-1.2.4-2.7 2.6.6z"/></svg>Settings</button>
+    </nav>
+
+    <div style="margin:10px 14px 16px;background:var(--green-800);border-radius:13px;padding:14px 15px;border:1px solid rgba(255,255,255,0.06);">
+      <div style="font-family:Georgia,serif;font-size:26px;line-height:0.6;color:var(--gold);">&ldquo;</div>
+      <div style="font-size:12.5px;line-height:1.5;color:#cfe0d4;font-weight:500;font-style:italic;margin-top:2px;">United by our heritage, stronger for our future.</div>
+    </div>
+  </aside>
+
+  <!-- RIGHT COLUMN -->
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;">
+    <header style="height:74px;flex-shrink:0;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;gap:18px;">
+      <div style="min-width:0;flex:1;">
+        <h1 style="margin:0;font-size:19px;font-weight:800;letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ pageTitle }}</h1>
+        <p style="margin:2px 0 0;font-size:12.5px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ pageSubtitle }}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;">
+        <div style="display:flex;align-items:center;gap:9px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:8px 15px;width:240px;max-width:24vw;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa69d" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input placeholder="Search members, branches, events…" style="border:none;background:transparent;outline:none;font-size:13px;width:100%;color:var(--ink);"/>
+        </div>
+        <button style="position:relative;width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:var(--cream)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3c4a42" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M10.5 20a2 2 0 003 0"/></svg><span style="position:absolute;top:-3px;right:-3px;background:#c0392b;color:#fff;font-size:10px;font-weight:700;border-radius:9px;min-width:17px;height:17px;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);">3</span></button>
+        <button onClick="{{ logout }}" style="display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:5px 10px 5px 6px;cursor:pointer;" style-hover="background:var(--cream)" title="Click to view login screen">
+          <div style="width:34px;height:34px;border-radius:9px;background:var(--green-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">AB</div>
+          <div style="text-align:left;line-height:1.2;">
+            <div style="font-size:12.5px;font-weight:700;color:var(--ink);">Adebayo Babajide</div>
+            <div style="font-size:10.5px;color:var(--muted);font-weight:600;">Verified Member</div>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9aa69d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main style="flex:1;overflow-y:auto;padding:26px 28px 40px;">
+
+      <!-- ===== DASHBOARD ===== -->
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:1240px;animation:ofgUp .25s ease;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;">
+            <div style="width:48px;height:48px;border-radius:13px;background:var(--navy-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#22405f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0M16 6.2a3 3 0 010 5.6M17 13.5c2 .6 3.5 2.3 3.5 4.5"/></svg></div>
+            <div><div style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;">Verified Members</div><div style="font-size:28px;font-weight:800;line-height:1.1;color:var(--ink);">152</div><div style="font-size:11.5px;color:var(--green-600);font-weight:600;">+8 this month</div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;">
+            <div style="width:48px;height:48px;border-radius:13px;background:var(--green-050);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12L7 8M12 12l5-4M12 8V3"/><circle cx="12" cy="3" r="1.6"/><circle cx="7" cy="8" r="1.6"/><circle cx="17" cy="8" r="1.6"/></svg></div>
+            <div><div style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;">Branches</div><div style="font-size:28px;font-weight:800;line-height:1.1;color:var(--ink);">12</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;">Across 5 generations</div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;">
+            <div style="width:48px;height:48px;border-radius:13px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#a8791f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg></div>
+            <div><div style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;">Upcoming Events</div><div style="font-size:28px;font-weight:800;line-height:1.1;color:var(--ink);">6</div><div style="font-size:11.5px;color:var(--gold);font-weight:600;">3 this week</div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;">
+            <div style="width:48px;height:48px;border-radius:13px;background:#f3e6e6;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#a23b3b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2.5H9zM8.5 13l2 2 4-4.5"/></svg></div>
+            <div><div style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;">Pending Approvals</div><div style="font-size:28px;font-weight:800;line-height:1.1;color:var(--ink);">4</div><div style="font-size:11.5px;color:#a23b3b;font-weight:600;">Needs review</div></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-top:18px;align-items:start;">
+          <!-- Tree overview -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div><h2 style="margin:0;font-size:16px;font-weight:800;color:var(--ink);">Family Tree Overview</h2><p style="margin:2px 0 0;font-size:12px;color:var(--muted);">From Olukotun, the warlord, through his lineage</p></div>
+              <button onClick="{{ nav.tree }}" style="background:var(--green-050);color:var(--green-700);border:1px solid #cfe3d6;border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:700;cursor:pointer;" style-hover="background:#dcebd6">View Full Tree →</button>
+            </div>
+            <div style="background:var(--cream);border-radius:13px;padding:18px 14px;overflow-x:auto;">
+              <div style="display:flex;align-items:center;gap:14px;min-width:540px;">
+                <div style="background:#fbf0d2;border:1.5px solid #d9ad4e;border-radius:10px;padding:9px 13px;text-align:center;flex-shrink:0;"><div style="font-size:13px;font-weight:800;color:#7a5a16;">Olukotun</div><div style="font-size:10px;color:#9c7a2c;font-weight:600;">The Warlord</div></div>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" stroke="#c3b791" stroke-width="1.5"><path d="M0 7h22"/></svg>
+                <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+                  <div style="background:#dcefe0;border:1.5px solid #4caa73;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;color:#1f5a38;">Amokele</div>
+                  <div style="background:#dcefe0;border:1.5px solid #4caa73;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;color:#1f5a38;">Obeeje</div>
+                  <div style="background:#dcefe0;border:1.5px solid #4caa73;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;color:#1f5a38;">Apobiruesin</div>
+                </div>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" stroke="#c3b791" stroke-width="1.5"><path d="M0 7h22"/></svg>
+                <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+                  <div style="background:#d3ecec;border:1.5px solid #3f9a9a;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;color:#1d5a5a;">Olorunduyi</div>
+                  <div style="background:#d3ecec;border:1.5px solid #3f9a9a;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;color:#1d5a5a;">Odubado</div>
+                </div>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" stroke="#c3b791" stroke-width="1.5"><path d="M0 7h22"/></svg>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;flex-shrink:0;">
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Babajide</div>
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Bankole</div>
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Olorunfemi</div>
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Asaya</div>
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Olanipekun</div>
+                  <div style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#274a73;">Adegbola</div>
+                </div>
+              </div>
+            </div>
+            <!-- Recent activity -->
+            <h3 style="margin:20px 0 12px;font-size:14px;font-weight:800;color:var(--ink);">Recent Activity</h3>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <div style="display:flex;gap:11px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:8px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:12px;">+</div><div style="font-size:13px;color:var(--ink-soft);"><b style="color:var(--ink);">Chief Samuel Babajide</b> added <b style="color:var(--ink);">Bisi Babajide</b> to the Babajide branch<div style="font-size:11px;color:var(--muted);margin-top:1px;">2 hours ago · Pending approval</div></div></div>
+              <div style="display:flex;gap:11px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:8px;background:var(--gold-soft);color:#a8791f;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5A1.5 1.5 0 005.5 16H8l8 4V4l-8 4H5.5A1.5 1.5 0 004 9.5z"/></svg></div><div style="font-size:13px;color:var(--ink-soft);"><b style="color:var(--ink);">Tunde Olorunfemi</b> posted an announcement: <i>Family General Meeting</i><div style="font-size:11px;color:var(--muted);margin-top:1px;">Yesterday · Family-wide</div></div></div>
+              <div style="display:flex;gap:11px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:8px;background:#f3e6e6;color:#a23b3b;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg></div><div style="font-size:13px;color:var(--ink-soft);">Remembrance event created for <b style="color:var(--ink);">Late Pa Olukotun</b><div style="font-size:11px;color:var(--muted);margin-top:1px;">2 days ago · Olukotun / Agura branch</div></div></div>
+            </div>
+          </div>
+
+          <!-- Right rail -->
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><h3 style="margin:0;font-size:14.5px;font-weight:800;color:var(--ink);">Upcoming Events</h3><button onClick="{{ nav.events }}" style="background:none;border:none;color:var(--green-600);font-size:12px;font-weight:700;cursor:pointer;">View All</button></div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:12px;align-items:center;"><div style="width:46px;flex-shrink:0;text-align:center;background:var(--green-050);border-radius:9px;padding:6px 0;"><div style="font-size:10px;font-weight:700;color:var(--green-600);text-transform:uppercase;">Jun</div><div style="font-size:18px;font-weight:800;color:var(--green-700);line-height:1;">15</div></div><div><div style="font-size:13px;font-weight:700;color:var(--ink);">Family General Meeting</div><div style="font-size:11.5px;color:var(--muted);">10:00 AM · Ikare Community Hall</div></div></div>
+                <div style="display:flex;gap:12px;align-items:center;"><div style="width:46px;flex-shrink:0;text-align:center;background:var(--gold-soft);border-radius:9px;padding:6px 0;"><div style="font-size:10px;font-weight:700;color:#a8791f;text-transform:uppercase;">Aug</div><div style="font-size:18px;font-weight:800;color:#8a6414;line-height:1;">10</div></div><div><div style="font-size:13px;font-weight:700;color:var(--ink);">Family Reunion 2026</div><div style="font-size:11.5px;color:var(--muted);">12:00 PM · Okorun Quarters, Ikare</div></div></div>
+                <div style="display:flex;gap:12px;align-items:center;"><div style="width:46px;flex-shrink:0;text-align:center;background:var(--navy-soft);border-radius:9px;padding:6px 0;"><div style="font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;">Dec</div><div style="font-size:18px;font-weight:800;color:var(--navy);line-height:1;">25</div></div><div><div style="font-size:13px;font-weight:700;color:var(--ink);">End of Year Thanksgiving</div><div style="font-size:11.5px;color:var(--muted);">9:00 AM · CMS Church, Ikare</div></div></div>
+              </div>
+            </div>
+
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 13px;font-size:14.5px;font-weight:800;color:var(--ink);">This Week's Celebrations</h3>
+              <div style="display:flex;flex-direction:column;gap:11px;">
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">YO</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Yetunde Olorunfemi</div><div style="font-size:11px;color:var(--muted);">🎂 Birthday today · your cousin</div></div><button onClick="{{ nav.celebrations }}" style="background:var(--gold-soft);color:#8a6414;border:none;border-radius:8px;padding:6px 11px;font-size:11.5px;font-weight:700;cursor:pointer;">Greet</button></div>
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">SB</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Samuel & Grace Babajide</div><div style="font-size:11px;color:var(--muted);">💍 Anniversary in 3 days</div></div><button onClick="{{ nav.celebrations }}" style="background:var(--green-050);color:var(--green-700);border:none;border-radius:8px;padding:6px 11px;font-size:11.5px;font-weight:700;cursor:pointer;">Greet</button></div>
+              </div>
+            </div>
+
+            <div style="background:var(--green-900);border-radius:16px;padding:18px;color:#dce8df;">
+              <div style="font-family:Georgia,serif;font-size:30px;line-height:0.5;color:var(--gold);">&ldquo;</div>
+              <p style="margin:6px 0 0;font-size:13px;line-height:1.55;font-style:italic;color:#cfe0d4;">From Olukotun the warlord, through Amokele, Obeeje and their descendants, the family has remained united by courage, resilience and faith.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== FAMILY TREE ===== -->
+      <sc-if value="{{ isTree }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:ofgUp .25s ease;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:12.5px;font-weight:700;color:var(--muted);">View:</span>
+            <div style="display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px;">
+              <button style="border:none;background:var(--green-600);color:#fff;border-radius:7px;padding:6px 13px;font-size:12.5px;font-weight:700;cursor:pointer;">Horizontal</button>
+              <button style="border:none;background:transparent;color:var(--ink-soft);border-radius:7px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;">Vertical</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:9px;">
+            <button style="background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;" style-hover="background:var(--cream)">Expand All</button>
+            <button style="background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;" style-hover="background:var(--cream)">Collapse All</button>
+            <button style="background:var(--green-700);border:none;border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:7px;" style-hover="background:var(--green-600)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 4 5-4M4 19h16"/></svg>Download Tree</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;">
+            <div style="position:relative;width:100%;height:580px;overflow:auto;border-radius:11px;background:linear-gradient(var(--cream) 1px,transparent 1px),linear-gradient(90deg,var(--cream) 1px,transparent 1px);background-size:26px 26px;background-color:#fbfaf5;">
+              <div style="position:relative;width:900px;height:572px;">
+                <svg style="position:absolute;inset:0;width:900px;height:572px;pointer-events:none;" fill="none">
+                  <sc-for list="{{ treeLinks }}" as="lk" hint-placeholder-count="11">
+                    <path d="{{ lk.d }}" stroke="#c9bfa3" stroke-width="1.6"/>
+                  </sc-for>
+                </svg>
+                <sc-for list="{{ treeNodes }}" as="n" hint-placeholder-count="12">
+                  <button onClick="{{ n.onClick }}" style="{{ n.style }}">
+                    <span style="display:block;font-size:13px;font-weight:800;color:{{ n.fg }};line-height:1.15;">{{ n.name }}</span>
+                    <span style="display:block;font-size:10px;font-weight:600;color:{{ n.subfg }};margin-top:1px;">{{ n.sub }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;padding:13px 14px 8px;border-top:1px solid var(--line-soft);margin-top:6px;">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink-soft);"><span style="width:14px;height:14px;border-radius:4px;background:#fbf0d2;border:1.5px solid #d9ad4e;"></span>1st Generation</div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink-soft);"><span style="width:14px;height:14px;border-radius:4px;background:#dcefe0;border:1.5px solid #4caa73;"></span>2nd Generation</div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink-soft);"><span style="width:14px;height:14px;border-radius:4px;background:#d3ecec;border:1.5px solid #3f9a9a;"></span>3rd Generation</div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink-soft);"><span style="width:14px;height:14px;border-radius:4px;background:#dbe8f7;border:1.5px solid #5183bd;"></span>4th Generation</div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink-soft);"><span style="width:14px;height:14px;border-radius:4px;background:#ece1f6;border:1.5px solid #9a6fc4;"></span>5th Generation</div>
+            </div>
+          </div>
+
+          <!-- Tree side panel -->
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;">Selected</div>
+              <div style="font-size:19px;font-weight:800;color:var(--ink);">{{ treeSelNode.name }}</div>
+              <div style="font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px;">{{ treeSelNode.sub }}</div>
+              <div style="display:flex;gap:8px;margin-top:13px;flex-wrap:wrap;">
+                <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ treeSelNode.genBg }};color:{{ treeSelNode.genFg }};">{{ treeSelNode.genLabel }}</span>
+                <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--cream);color:var(--ink-soft);">Deceased · Ancestor</span>
+              </div>
+              <div style="margin-top:15px;font-size:12.5px;line-height:1.55;color:var(--ink-soft);">{{ treeSelNode.note }}</div>
+              <button onClick="{{ nav.branches }}" style="margin-top:15px;width:100%;background:var(--green-700);border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">View Branch Profile</button>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 14px;font-size:14.5px;font-weight:800;color:var(--ink);">Member Statistics</h3>
+              <div style="display:flex;align-items:center;gap:18px;">
+                <svg width="118" height="118" viewBox="0 0 42 42">
+                  <circle cx="21" cy="21" r="15.9" fill="none" stroke="#ede9dd" stroke-width="6"/>
+                  <circle cx="21" cy="21" r="15.9" fill="none" stroke="#3b6db0" stroke-width="6" stroke-dasharray="58 42" stroke-dashoffset="25" stroke-linecap="butt"/>
+                  <circle cx="21" cy="21" r="15.9" fill="none" stroke="#d96aa0" stroke-width="6" stroke-dasharray="42 58" stroke-dashoffset="-33" stroke-linecap="butt"/>
+                  <text x="21" y="20" text-anchor="middle" font-size="9" font-weight="800" fill="#16241c">152</text>
+                  <text x="21" y="27" text-anchor="middle" font-size="3.6" font-weight="600" fill="#6f7d74">MEMBERS</text>
+                </svg>
+                <div style="display:flex;flex-direction:column;gap:9px;font-size:12px;">
+                  <div style="display:flex;align-items:center;gap:8px;"><span style="width:11px;height:11px;border-radius:3px;background:#3b6db0;"></span><span style="color:var(--ink-soft);font-weight:600;">Male</span><b style="margin-left:auto;color:var(--ink);">88 · 58%</b></div>
+                  <div style="display:flex;align-items:center;gap:8px;"><span style="width:11px;height:11px;border-radius:3px;background:#d96aa0;"></span><span style="color:var(--ink-soft);font-weight:600;">Female</span><b style="margin-left:auto;color:var(--ink);">64 · 42%</b></div>
+                  <div style="display:flex;align-items:center;gap:8px;"><span style="width:11px;height:11px;border-radius:3px;background:#eae6da;"></span><span style="color:var(--ink-soft);font-weight:600;">Other</span><b style="margin-left:auto;color:var(--ink);">0 · 0%</b></div>
+                </div>
+              </div>
+              <div style="border-top:1px solid var(--line-soft);margin-top:15px;padding-top:13px;">
+                <div style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;margin-bottom:9px;">Generation Breakdown</div>
+                <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--ink-soft);">
+                  <div style="display:flex;justify-content:space-between;"><span>1st Generation</span><b style="color:var(--ink);">1 · 1%</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span>2nd Generation</span><b style="color:var(--ink);">3 · 2%</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span>3rd Generation</span><b style="color:var(--ink);">8 · 5%</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span>4th Generation</span><b style="color:var(--ink);">46 · 30%</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span>5th Generation</span><b style="color:var(--ink);">94 · 62%</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== MEMBERS DIRECTORY ===== -->
+      <sc-if value="{{ isMembers }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px 15px;width:330px;max-width:100%;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa69d" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input value="{{ dirSearch }}" onInput="{{ onDirSearch }}" placeholder="Search by name or branch…" style="border:none;background:transparent;outline:none;font-size:13.5px;width:100%;color:var(--ink);"/>
+          </div>
+          <button onClick="{{ goAddMember }}" style="background:var(--green-700);border:none;border-radius:11px;padding:11px 17px;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="background:var(--green-600)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add Member</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px;">
+          <sc-for list="{{ branchChips }}" as="c" hint-placeholder-count="7">
+            <button onClick="{{ c.onClick }}" style="{{ c.style }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ c.color }};"></span>{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:2.2fr 1.4fr 1.6fr 1fr 110px;gap:12px;padding:13px 20px;border-bottom:1px solid var(--line);font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;">
+            <div>Member</div><div>Branch · Generation</div><div>Contact</div><div>Relationship</div><div style="text-align:right;">Actions</div>
+          </div>
+          <sc-for list="{{ dirPeople }}" as="p" hint-placeholder-count="8">
+            <div onClick="{{ p.onOpen }}" style="display:grid;grid-template-columns:2.2fr 1.4fr 1.6fr 1fr 110px;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line-soft);align-items:center;cursor:pointer;" style-hover="background:var(--cream)">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                <div style="width:40px;height:40px;border-radius:10px;background:{{ p.branchColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">{{ p.initials }}</div>
+                <div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.name }}</div><div style="font-size:11.5px;color:var(--muted);">{{ p.gLabel }} · {{ p.occ }}</div></div>
+              </div>
+              <div><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:{{ p.branchColor }};"><span style="width:7px;height:7px;border-radius:50%;background:{{ p.branchColor }};"></span>{{ p.branchLabel }}</span><div style="font-size:11.5px;color:var(--muted);margin-top:2px;">{{ p.genLabel }}</div></div>
+              <div style="min-width:0;"><div style="font-size:12.5px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.email }}</div><div style="font-size:11.5px;color:var(--muted);">{{ p.phone }}</div></div>
+              <div><span style="font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--green-050);color:var(--green-700);">{{ p.rel }}</span></div>
+              <div style="display:flex;gap:7px;justify-content:flex-end;">
+                <span style="width:32px;height:32px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--green-600);" style-hover="background:var(--green-050)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+                <span style="width:32px;height:32px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--navy);" style-hover="background:var(--navy-soft)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 5 8-5"/></svg></span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== MEMBER PROFILE ===== -->
+      <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1080px;animation:ofgUp .25s ease;">
+        <button onClick="{{ goMembers }}" style="display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:14px;" style-hover="color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back to directory</button>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;">
+          <div style="height:96px;background:linear-gradient(110deg,var(--green-800),var(--green-600));"></div>
+          <div style="padding:0 28px 24px;">
+            <div style="display:flex;align-items:flex-end;gap:18px;margin-top:-44px;flex-wrap:wrap;">
+              <div style="width:96px;height:96px;border-radius:22px;background:{{ currentMember.branchColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:30px;border:4px solid var(--card);flex-shrink:0;">{{ currentMember.initials }}</div>
+              <div style="flex:1;min-width:200px;padding-bottom:4px;">
+                <h2 style="margin:0;font-size:24px;font-weight:800;color:var(--ink);">{{ currentMember.name }}</h2>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                  <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ currentMember.genBg }};color:{{ currentMember.genFg }};">{{ currentMember.genLabel }}</span>
+                  <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;color:#fff;background:{{ currentMember.branchColor }};">{{ currentMember.branchLabel }}</span>
+                  <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--cream);color:var(--ink-soft);">{{ currentMember.statusLabel }}</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;padding-bottom:6px;">
+                <button style="background:var(--green-700);border:none;border-radius:10px;padding:10px 15px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:7px;" style-hover="background:var(--green-600)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Call</button>
+                <button style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;" style-hover="background:var(--cream)">Message</button>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;background:var(--green-050);border:1px solid #cfe3d6;border-radius:13px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+              <div style="width:38px;height:38px;border-radius:50%;background:var(--green-600);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12L7 8M12 12l5-4M12 8V3"/></svg></div>
+              <div style="flex:1;min-width:220px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.05em;color:var(--green-700);text-transform:uppercase;">Relationship to you</div><div style="font-size:16px;font-weight:800;color:var(--ink);margin-top:1px;">{{ currentMember.name }} is your <span style="color:var(--green-700);">{{ currentMember.rel }}</span></div><div style="font-size:12.5px;color:var(--ink-soft);margin-top:3px;">Common ancestor: <b>Olorunduyi (Daniel-Oliku)</b> · Path: You → Your Father → Olorunduyi line → {{ currentMember.name }}</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;">
+              <div>
+                <h3 style="margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:0.03em;color:var(--muted);text-transform:uppercase;">Contact</h3>
+                <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;">
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Phone</span><b style="color:var(--ink);">{{ currentMember.phone }}</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Email</span><b style="color:var(--ink);">{{ currentMember.email }}</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Location</span><b style="color:var(--ink);">{{ currentMember.loc }}</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Occupation</span><b style="color:var(--ink);">{{ currentMember.occ }}</b></div>
+                </div>
+                <h3 style="margin:20px 0 12px;font-size:13px;font-weight:800;letter-spacing:0.03em;color:var(--muted);text-transform:uppercase;">Milestones</h3>
+                <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;">
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="width:30px;height:30px;border-radius:8px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;">🎂</span><div><div style="font-weight:700;color:var(--ink);">Birthday</div><div style="font-size:11.5px;color:var(--muted);">{{ currentMember.dob }}</div></div></div>
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="width:30px;height:30px;border-radius:8px;background:var(--green-050);display:flex;align-items:center;justify-content:center;">💍</span><div><div style="font-weight:700;color:var(--ink);">Wedding Anniversary</div><div style="font-size:11.5px;color:var(--muted);">14 December</div></div></div>
+                </div>
+              </div>
+              <div>
+                <h3 style="margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:0.03em;color:var(--muted);text-transform:uppercase;">Family</h3>
+                <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;">
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Branch</span><b style="color:var(--ink);">{{ currentMember.branchLabel }}</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Generation</span><b style="color:var(--ink);">{{ currentMember.genLabel }}</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Father</span><b style="color:var(--ink);">Chief Samuel Babajide</b></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Mother</span><b style="color:var(--ink);">Grace Babajide</b></div>
+                </div>
+                <h3 style="margin:20px 0 12px;font-size:13px;font-weight:800;letter-spacing:0.03em;color:var(--muted);text-transform:uppercase;">Same branch</h3>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <sc-for list="{{ relatives }}" as="r" hint-placeholder-count="4">
+                    <div onClick="{{ r.onOpen }}" style="display:flex;align-items:center;gap:10px;padding:7px;border-radius:10px;cursor:pointer;" style-hover="background:var(--cream)"><div style="width:32px;height:32px;border-radius:8px;background:{{ r.branchColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;">{{ r.initials }}</div><div style="font-size:12.5px;"><b style="color:var(--ink);">{{ r.name }}</b><div style="font-size:11px;color:var(--muted);">{{ r.rel }}</div></div></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:8px;font-size:11px;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:14px;">Created 12 Jan 2024 · Last updated by Chief Samuel Babajide · Approved</div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== BRANCHES ===== -->
+      <sc-if value="{{ isBranches }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <sc-for list="{{ branchCards }}" as="b" hint-placeholder-count="6">
+            <div onClick="{{ b.onOpen }}" style="background:var(--card);border:1px solid var(--line);border-radius:15px;overflow:hidden;cursor:pointer;" style-hover="border-color:var(--green-500)">
+              <div style="{{ b.barStyle }}"></div>
+              <div style="padding:17px 18px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;"><h3 style="margin:0;font-size:16px;font-weight:800;color:var(--ink);">{{ b.label }}</h3><span style="font-size:12px;font-weight:800;color:{{ b.color }};background:var(--cream);border-radius:999px;padding:3px 10px;">{{ b.count }}</span></div>
+                <p style="margin:9px 0 14px;font-size:12.5px;line-height:1.5;color:var(--ink-soft);min-height:54px;">{{ b.summary }}</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:12px;"><div style="font-size:11.5px;color:var(--muted);">Head: <b style="color:var(--ink-soft);">{{ b.head }}</b></div><span style="font-size:12px;font-weight:700;color:{{ b.color }};">View →</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== BRANCH PROFILE ===== -->
+      <sc-if value="{{ isBranch }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1080px;animation:ofgUp .25s ease;">
+        <button onClick="{{ goBranches }}" style="display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:14px;" style-hover="color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>All branches</button>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;border-top:5px solid {{ curBranch.color }};">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+            <div><h2 style="margin:0;font-size:24px;font-weight:800;color:var(--ink);">{{ curBranch.label }} Branch</h2><p style="margin:8px 0 0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);max-width:620px;">{{ curBranch.summary }}</p></div>
+            <div style="text-align:center;background:var(--cream);border-radius:13px;padding:14px 22px;"><div style="font-size:30px;font-weight:800;color:{{ curBranch.color }};line-height:1;">{{ curBranch.count }}</div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-top:3px;">Members</div></div>
+          </div>
+          <div style="display:flex;gap:24px;margin-top:18px;flex-wrap:wrap;font-size:13px;">
+            <div><span style="color:var(--muted);">Branch Head</span> <b style="color:var(--ink);">{{ curBranch.head }}</b></div>
+            <div><span style="color:var(--muted);">Upcoming celebrations</span> <b style="color:var(--ink);">3</b></div>
+            <div><span style="color:var(--muted);">Remembrances</span> <b style="color:var(--ink);">1</b></div>
+          </div>
+        </div>
+        <h3 style="margin:22px 0 12px;font-size:14px;font-weight:800;color:var(--ink);">Members of this branch</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+          <sc-for list="{{ branchMembers }}" as="p" hint-placeholder-count="4">
+            <div onClick="{{ p.onOpen }}" style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px;display:flex;align-items:center;gap:13px;cursor:pointer;" style-hover="background:var(--cream)">
+              <div style="width:44px;height:44px;border-radius:11px;background:{{ p.branchColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">{{ p.initials }}</div>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--ink);">{{ p.name }}</div><div style="font-size:11.5px;color:var(--muted);">{{ p.genLabel }} · {{ p.occ }}</div></div>
+              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--green-050);color:var(--green-700);">{{ p.rel }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== ADD MEMBER ===== -->
+      <sc-if value="{{ isAddMember }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:920px;animation:ofgUp .25s ease;">
+        <button onClick="{{ goMembers }}" style="display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:14px;" style-hover="color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Cancel</button>
+        <div style="background:#fdf6e3;border:1px solid #ecd9a6;border-radius:13px;padding:14px 18px;margin-bottom:18px;display:flex;gap:11px;align-items:flex-start;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a8791f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div style="font-size:12.5px;color:#7a5a16;line-height:1.5;">Only family heads and branch admins can add members to a branch. New records go to review before appearing in the directory and tree.</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;">
+          <h3 style="margin:0 0 4px;font-size:15px;font-weight:800;color:var(--ink);">Member details</h3>
+          <p style="margin:0 0 18px;font-size:12.5px;color:var(--muted);">Fields marked with * are required.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Full name *</label><input placeholder="e.g. Tope Babajide" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Gender *</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"><option>Male</option><option>Female</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Branch / clan *</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"><option>Babajide</option><option>Olorunfemi</option><option>Olanipekun</option><option>Bankole</option><option>Asaya</option><option>Adegbola</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Generation *</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"><option>5th Generation</option><option>4th Generation</option><option>6th Generation</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Parent / ancestor connection *</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"><option>Child of Chief Samuel Babajide</option><option>Child of Tunde Olorunfemi</option><option>Grandchild of Olorunduyi</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Living status *</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"><option>Living</option><option>Deceased</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Date of birth</label><input type="date" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Phone / WhatsApp</label><input placeholder="+234…" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;outline:none;background:var(--cream);"/></div>
+          </div>
+          <div style="margin-top:18px;background:var(--green-050);border:1px dashed #b6d4c1;border-radius:13px;padding:16px;">
+            <div style="font-size:12px;font-weight:800;color:var(--green-700);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Tree placement preview</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:12.5px;flex-wrap:wrap;">
+              <span style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:9px;padding:7px 12px;font-weight:700;color:#274a73;">Olorunduyi</span>
+              <svg width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#9bbf8f" stroke-width="1.5"><path d="M0 6h20"/></svg>
+              <span style="background:#dbe8f7;border:1.5px solid #5183bd;border-radius:9px;padding:7px 12px;font-weight:700;color:#274a73;">Chief Samuel Babajide</span>
+              <svg width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#9bbf8f" stroke-width="1.5"><path d="M0 6h20"/></svg>
+              <span style="background:#fff;border:2px dashed var(--green-600);border-radius:9px;padding:7px 12px;font-weight:800;color:var(--green-700);">New member</span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+            <button onClick="{{ goMembers }}" style="background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 18px;font-size:13.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Save draft</button>
+            <button onClick="{{ goMembers }}" style="background:var(--green-700);border:none;border-radius:11px;padding:12px 20px;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">Submit for review</button>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== EVENTS ===== -->
+      <sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
+          <div style="display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px;">
+            <button style="border:none;background:var(--green-600);color:#fff;border-radius:7px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;">Upcoming</button>
+            <button style="border:none;background:transparent;color:var(--ink-soft);border-radius:7px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;">Calendar</button>
+            <button style="border:none;background:transparent;color:var(--ink-soft);border-radius:7px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;">My RSVPs</button>
+          </div>
+          <button style="background:var(--green-700);border:none;border-radius:11px;padding:11px 17px;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="background:var(--green-600)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Create Event</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;gap:16px;">
+            <div style="width:62px;flex-shrink:0;text-align:center;background:var(--green-050);border-radius:12px;padding:11px 0;"><div style="font-size:11px;font-weight:700;color:var(--green-600);text-transform:uppercase;">Jun</div><div style="font-size:24px;font-weight:800;color:var(--green-700);line-height:1;">15</div></div>
+            <div style="flex:1;"><span style="font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--navy-soft);color:var(--navy);">Family Meeting</span><h3 style="margin:9px 0 4px;font-size:15.5px;font-weight:800;color:var(--ink);">Family General Meeting</h3><p style="margin:0;font-size:12.5px;color:var(--muted);line-height:1.5;">10:00 AM · Ikare Community Hall · Hosted by Foundation Secretariat</p><div style="display:flex;gap:8px;margin-top:12px;"><button style="background:var(--green-700);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">RSVP</button><span style="font-size:11.5px;color:var(--muted);align-self:center;">38 attending</span></div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;gap:16px;">
+            <div style="width:62px;flex-shrink:0;text-align:center;background:var(--gold-soft);border-radius:12px;padding:11px 0;"><div style="font-size:11px;font-weight:700;color:#a8791f;text-transform:uppercase;">Aug</div><div style="font-size:24px;font-weight:800;color:#8a6414;line-height:1;">10</div></div>
+            <div style="flex:1;"><span style="font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--gold-soft);color:#8a6414;">Reunion</span><h3 style="margin:9px 0 4px;font-size:15.5px;font-weight:800;color:var(--ink);">Family Reunion 2026</h3><p style="margin:0;font-size:12.5px;color:var(--muted);line-height:1.5;">12:00 PM · Okorun Quarters, Ikare-Akoko · All branches welcome</p><div style="display:flex;gap:8px;margin-top:12px;"><button style="background:var(--green-700);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">RSVP</button><span style="font-size:11.5px;color:var(--muted);align-self:center;">112 attending</span></div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;gap:16px;">
+            <div style="width:62px;flex-shrink:0;text-align:center;background:var(--navy-soft);border-radius:12px;padding:11px 0;"><div style="font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;">Dec</div><div style="font-size:24px;font-weight:800;color:var(--navy);line-height:1;">25</div></div>
+            <div style="flex:1;"><span style="font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--green-050);color:var(--green-700);">Thanksgiving</span><h3 style="margin:9px 0 4px;font-size:15.5px;font-weight:800;color:var(--ink);">End of Year Thanksgiving</h3><p style="margin:0;font-size:12.5px;color:var(--muted);line-height:1.5;">9:00 AM · CMS Church, Ikare-Akoko · Family-wide service</p><div style="display:flex;gap:8px;margin-top:12px;"><button style="background:var(--green-700);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">RSVP</button><span style="font-size:11.5px;color:var(--muted);align-self:center;">64 attending</span></div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;gap:16px;">
+            <div style="width:62px;flex-shrink:0;text-align:center;background:#ece6f3;border-radius:12px;padding:11px 0;"><div style="font-size:11px;font-weight:700;color:#7c5295;text-transform:uppercase;">Jul</div><div style="font-size:24px;font-weight:800;color:#5a3f7a;line-height:1;">02</div></div>
+            <div style="flex:1;"><span style="font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:#ece6f3;color:#5a3f7a;">Branch Meeting</span><h3 style="margin:9px 0 4px;font-size:15.5px;font-weight:800;color:var(--ink);">Babajide Branch Quarterly</h3><p style="margin:0;font-size:12.5px;color:var(--muted);line-height:1.5;">4:00 PM · Online (Zoom) · Babajide branch only</p><div style="display:flex;gap:8px;margin-top:12px;"><button style="background:var(--green-700);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">RSVP</button><span style="font-size:11.5px;color:var(--muted);align-self:center;">9 attending</span></div></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== ANNOUNCEMENTS ===== -->
+      <sc-if value="{{ isAnnouncements }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:880px;animation:ofgUp .25s ease;">
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px;margin-bottom:18px;display:flex;gap:13px;align-items:flex-start;">
+          <div style="width:40px;height:40px;border-radius:10px;background:var(--green-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">AB</div>
+          <div style="flex:1;"><textarea placeholder="Share an update with the family…" style="width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:13.5px;outline:none;resize:none;background:var(--cream);min-height:46px;"></textarea><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;"><select style="border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;background:var(--cream);color:var(--ink-soft);"><option>Family-wide</option><option>Babajide branch only</option></select><button style="background:var(--green-700);border:none;border-radius:9px;padding:9px 18px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;">Post</button></div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="background:var(--card);border:1px solid var(--gold);border-radius:15px;padding:18px;position:relative;">
+            <span style="position:absolute;top:16px;right:18px;font-size:10.5px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:5px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 4v6l-2 4v2h10v-2l-2-4V4z"/></svg>PINNED</span>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><span style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:3px 9px;border-radius:999px;background:var(--navy-soft);color:var(--navy);">Family Meeting</span></div>
+            <h3 style="margin:0 0 6px;font-size:16px;font-weight:800;color:var(--ink);">Family General Meeting — 15 June</h3>
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">All verified members are invited to the mid-year general meeting at Ikare Community Hall. We will review the family register, welcome new members, and discuss the 2026 reunion. Please arrive by 9:45 AM.</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11.5px;color:var(--muted);"><b style="color:var(--ink-soft);">Tunde Olorunfemi</b> · Foundation Admin · 2 days ago</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><span style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:3px 9px;border-radius:999px;background:#e7f0e9;color:var(--green-700);">Birth Announcement</span></div>
+            <h3 style="margin:0 0 6px;font-size:16px;font-weight:800;color:var(--ink);">A new addition to the Bankole branch</h3>
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">We rejoice with Aisha Bankole and her husband on the safe arrival of their baby girl. Mother and child are doing well. The family gives thanks.</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11.5px;color:var(--muted);"><b style="color:var(--ink-soft);">Kunle Bankole</b> · Family Head · 5 days ago</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><span style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:3px 9px;border-radius:999px;background:var(--gold-soft);color:#8a6414;">Education Support</span></div>
+            <h3 style="margin:0 0 6px;font-size:16px;font-weight:800;color:var(--ink);">Foundation scholarship applications now open</h3>
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">The family education fund is accepting applications for the 2026/2027 academic year. Members in need of school fees support should contact their branch head before 30 June.</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11.5px;color:var(--muted);"><b style="color:var(--ink-soft);">Foundation Secretariat</b> · 1 week ago</div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== CELEBRATIONS ===== -->
+      <sc-if value="{{ isCelebrations }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start;">
+          <div style="background:linear-gradient(135deg,#fcf4dd,#fbe7c8);border:1px solid #ecd9a6;border-radius:18px;padding:24px;">
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#a8791f;">🎂 Today's Birthday</span>
+            <div style="display:flex;align-items:center;gap:16px;margin-top:14px;">
+              <div style="width:68px;height:68px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;">YO</div>
+              <div><h2 style="margin:0;font-size:23px;font-weight:800;color:#5a3f12;">Yetunde Olorunfemi</h2><p style="margin:3px 0 0;font-size:13px;color:#8a6414;">Olorunfemi branch · 4th Generation · turning 34 today · <b>your first cousin</b></p></div>
+            </div>
+            <p style="margin:16px 0 0;font-size:13.5px;line-height:1.6;color:#6e5418;font-style:italic;">"Happy Birthday, Yetunde. The Olukotun Agura Family celebrates you today and wishes you joy, good health, and many more fruitful years."</p>
+            <div style="background:rgba(255,255,255,0.6);border-radius:13px;padding:14px;margin-top:16px;">
+              <div style="font-size:12px;font-weight:800;color:#8a6414;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:11px;">Greeting wall · 23 messages</div>
+              <div style="display:flex;flex-direction:column;gap:10px;max-height:150px;overflow-y:auto;">
+                <div style="display:flex;gap:9px;"><div style="width:30px;height:30px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">FB</div><div style="font-size:12.5px;background:#fff;border-radius:10px;padding:8px 11px;"><b style="color:var(--ink);">Folake Babajide</b> Happy birthday cousin! 🎉 Wishing you the very best.</div></div>
+                <div style="display:flex;gap:9px;"><div style="width:30px;height:30px;border-radius:50%;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">SB</div><div style="font-size:12.5px;background:#fff;border-radius:10px;padding:8px 11px;"><b style="color:var(--ink);">Chief Samuel</b> God bless you abundantly, my dear. 🙏</div></div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:11px;"><input placeholder="Write a birthday greeting…" style="flex:1;border:1px solid #e3d2a4;border-radius:9px;padding:9px 12px;font-size:12.5px;outline:none;background:#fff;"/><button style="background:var(--gold);border:none;border-radius:9px;padding:9px 16px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Send</button></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 14px;font-size:14.5px;font-weight:800;color:var(--ink);">Upcoming Birthdays</h3>
+              <div style="display:flex;flex-direction:column;gap:13px;">
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:38px;height:38px;border-radius:50%;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">BB</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Bamidele Babajide</div><div style="font-size:11px;color:var(--muted);">18 Jun · in 1 day · first cousin</div></div><button style="background:var(--green-050);color:var(--green-700);border:none;border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;cursor:pointer;">Greet</button></div>
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:38px;height:38px;border-radius:50%;background:#486fb0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">NO</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Ngozi Olanipekun</div><div style="font-size:11px;color:var(--muted);">30 Apr · second cousin</div></div><button style="background:var(--green-050);color:var(--green-700);border:none;border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;cursor:pointer;">Greet</button></div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 14px;font-size:14.5px;font-weight:800;color:var(--ink);">💍 Wedding Anniversaries</h3>
+              <div style="display:flex;align-items:center;gap:11px;">
+                <div style="display:flex;"><div style="width:38px;height:38px;border-radius:50%;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:2px solid #fff;">SB</div><div style="width:38px;height:38px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-left:-12px;border:2px solid #fff;">GB</div></div>
+                <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Samuel &amp; Grace Babajide</div><div style="font-size:11px;color:var(--muted);">14 Dec · 38 years · in 3 days</div></div>
+                <button style="background:var(--green-050);color:var(--green-700);border:none;border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;cursor:pointer;">Greet</button>
+              </div>
+            </div>
+            <div style="background:var(--green-050);border:1px solid #cfe3d6;border-radius:14px;padding:14px 16px;font-size:11.5px;color:var(--green-700);line-height:1.5;">Birthdays and anniversaries are created automatically from member profiles, and reminders are sent by email and WhatsApp.</div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== REMEMBRANCE ===== -->
+      <sc-if value="{{ isRemembrance }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1080px;animation:ofgUp .25s ease;">
+        <div style="background:#1c2b33;border-radius:18px;padding:32px;color:#dfe7ea;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c79a3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M8 7c0-2 1.6-3.5 4-3.5S16 5 16 7c0 2.5-4 4-4 4s-4-1.5-4-4z"/></svg>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9bb0b8;margin-top:14px;">In loving memory</div>
+            <h2 style="margin:8px 0 0;font-size:28px;font-weight:800;color:#fff;">Late Pa Olukotun (Agura)</h2>
+            <p style="margin:6px 0 0;font-size:14px;color:#b8c6cc;">Founder of the family · Olukotun / Agura branch · The Warlord</p>
+            <p style="margin:18px 0 0;font-size:14.5px;line-height:1.7;color:#cdd9dd;max-width:600px;font-style:italic;">"Today, we remember Late Pa Olukotun of the Olukotun / Agura branch. May his memory continue to be a blessing to the family. Kindly share your prayers, memories, and goodwill with the affected family."</p>
+            <div style="display:flex;gap:10px;margin-top:22px;"><span style="font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:999px;background:rgba(199,154,58,0.18);color:#e3c074;">Annual remembrance · today</span></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px;align-items:start;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <h3 style="margin:0 0 4px;font-size:15px;font-weight:800;color:var(--ink);">Tribute wall</h3>
+            <p style="margin:0 0 16px;font-size:12px;color:var(--muted);">Share a prayer, memory or family story.</p>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;gap:11px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;">TO</div><div><div style="background:var(--cream);border-radius:12px;padding:11px 14px;font-size:13px;color:var(--ink-soft);line-height:1.55;">Papa's courage built this family. We tell his stories to our children every year. Rest on, great warrior.</div><div style="font-size:11px;color:var(--muted);margin-top:5px;">Tunde Olorunfemi · 1 day ago</div></div></div>
+              <div style="display:flex;gap:11px;"><div style="width:36px;height:36px;border-radius:50%;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;">SB</div><div><div style="background:var(--cream);border-radius:12px;padding:11px 14px;font-size:13px;color:var(--ink-soft);line-height:1.55;">May his soul continue to rest in perfect peace. The roots he planted still bear fruit. 🙏</div><div style="font-size:11px;color:var(--muted);margin-top:5px;">Chief Samuel Babajide · 1 day ago</div></div></div>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:18px;"><input placeholder="Write a tribute or prayer…" style="flex:1;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:13px;outline:none;background:var(--cream);"/><button style="background:#1c2b33;border:none;border-radius:10px;padding:11px 18px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;">Share</button></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;color:var(--muted);">Details</h3>
+              <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Branch</span><b style="color:var(--ink);">Olukotun / Agura</b></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Generation</span><b style="color:var(--ink);">1st Generation</b></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Remembered by</span><b style="color:var(--ink);">All branches</b></div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <h3 style="margin:0 0 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;color:var(--muted);">Other remembrances</h3>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:34px;height:34px;border-radius:9px;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;">AB</div><div><div style="font-size:12.5px;font-weight:700;color:var(--ink);">Late Aderonke Babajide</div><div style="font-size:11px;color:var(--muted);">20 Feb · Babajide branch</div></div></div>
+                <div style="display:flex;align-items:center;gap:11px;"><div style="width:34px;height:34px;border-radius:9px;background:#b5651d;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;">OB</div><div><div style="font-size:12.5px;font-weight:700;color:var(--ink);">Late Obeeje</div><div style="font-size:11px;color:var(--muted);">Obeeje line · ancestor</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== SUPPORT REQUESTS ===== -->
+      <sc-if value="{{ isSupport }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="background:var(--green-050);border:1px solid #cfe3d6;border-radius:13px;padding:13px 18px;margin-bottom:18px;font-size:12.5px;color:var(--green-700);line-height:1.5;">Support requests are reviewed by a family or branch admin before they become public. Requests are handled with care and dignity.</div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;">
+              <div style="height:6px;background:var(--gold);"></div>
+              <div style="padding:20px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;"><span style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:3px 10px;border-radius:999px;background:var(--gold-soft);color:#8a6414;">Education Support</span><span style="font-size:11px;font-weight:700;color:var(--green-600);">● Approved · Fundraising</span></div>
+                <h3 style="margin:11px 0 4px;font-size:17px;font-weight:800;color:var(--ink);">University tuition for Bisi Babajide</h3>
+                <p style="margin:0;font-size:13px;color:var(--ink-soft);line-height:1.6;">Bisi gained admission to study Medicine but the family needs help covering her first-year tuition. Every contribution brings her closer to her dream of serving as a family doctor.</p>
+                <div style="display:flex;align-items:center;gap:10px;margin:15px 0 8px;"><div style="font-size:13px;font-weight:800;color:var(--ink);">₦620,000 <span style="font-weight:600;color:var(--muted);font-size:12px;">raised of ₦950,000</span></div><div style="margin-left:auto;font-size:12px;font-weight:700;color:var(--green-600);">65%</div></div>
+                <div style="height:9px;background:var(--cream);border-radius:999px;overflow:hidden;"><div style="width:65%;height:100%;background:var(--green-600);border-radius:999px;"></div></div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:14px;"><div style="width:34px;height:34px;border-radius:9px;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">BB</div><div style="font-size:12px;"><b style="color:var(--ink);">Bisi Babajide</b><div style="color:var(--muted);font-size:11px;">Babajide branch · beneficiary</div></div><button onClick="{{ goDonations }}" style="margin-left:auto;background:var(--green-700);border:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">Support this</button></div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><span style="font-size:10.5px;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:#f3e6e6;color:#a23b3b;">Medical Support</span><h3 style="margin:10px 0 3px;font-size:15px;font-weight:800;color:var(--ink);">Surgery support for Pa Gabriel Asaya</h3><p style="margin:0;font-size:12.5px;color:var(--muted);">Asaya branch · ₦1,200,000 needed</p></div><span style="font-size:11px;font-weight:700;color:#a8791f;background:var(--gold-soft);padding:4px 10px;border-radius:999px;">Pending review</span></div>
+            </div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <h3 style="margin:0 0 4px;font-size:15px;font-weight:800;color:var(--ink);">Raise a support request</h3>
+            <p style="margin:0 0 16px;font-size:12px;color:var(--muted);">Your request goes to your branch admin for review.</p>
+            <div style="display:flex;flex-direction:column;gap:13px;">
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Request title</label><input placeholder="e.g. School fees support" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"/></div>
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Category</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"><option>Education support</option><option>Medical support</option><option>Emergency assistance</option><option>Burial / funeral support</option><option>Business support</option></select></div>
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Amount needed (optional)</label><input placeholder="₦" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"/></div>
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Describe the need</label><textarea placeholder="Share the situation respectfully…" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;resize:none;min-height:72px;background:var(--cream);"></textarea></div>
+              <label style="font-size:12px;color:var(--ink-soft);display:flex;align-items:flex-start;gap:8px;line-height:1.4;"><input type="checkbox" style="margin-top:2px;"/>I confirm the beneficiary consents to this request being reviewed by family admins.</label>
+              <button style="background:var(--green-700);border:none;border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">Submit for review</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== WORK REQUESTS ===== -->
+      <sc-if value="{{ isWork }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+              <div style="display:flex;align-items:center;gap:13px;"><div style="width:48px;height:48px;border-radius:12px;background:#486fb0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;">WO</div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;"><h3 style="margin:0;font-size:16px;font-weight:800;color:var(--ink);">Wale Olorunfemi</h3><span style="font-size:10.5px;font-weight:700;color:var(--green-600);">● Active</span></div><p style="margin:2px 0 0;font-size:12px;color:var(--muted);">Civil Engineer · 6 yrs · Port Harcourt · Olorunfemi branch</p></div></div>
+              <span style="display:inline-block;margin:13px 0 0;font-size:10.5px;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--navy-soft);color:var(--navy);">Job Referral</span>
+              <p style="margin:11px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.6;">Seeking a referral or opening in structural/site engineering, ideally Lagos or Abuja. Open to contract or full-time roles. Happy to share portfolio.</p>
+              <div style="display:flex;gap:9px;margin-top:15px;"><button style="background:var(--green-700);border:none;border-radius:10px;padding:9px 16px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">I can help</button><button style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 16px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Refer someone</button><button style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 16px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">View CV</button></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;align-items:center;gap:13px;"><div style="width:44px;height:44px;border-radius:11px;background:#8a5a8f;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">GA</div><div style="flex:1;"><div style="font-size:14px;font-weight:800;color:var(--ink);">Gbenga Asaya · Mentorship</div><div style="font-size:12px;color:var(--muted);">Teacher seeking guidance moving into EdTech</div></div><span style="font-size:11px;font-weight:700;color:#a8791f;background:var(--gold-soft);padding:4px 10px;border-radius:999px;">Pending review</span></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <h3 style="margin:0 0 4px;font-size:15px;font-weight:800;color:var(--ink);">Raise a work or opportunity request</h3>
+            <p style="margin:0 0 16px;font-size:12px;color:var(--muted);">Reviewed by an admin before it is shared with the family network.</p>
+            <div style="display:flex;flex-direction:column;gap:13px;">
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Request type</label><select style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"><option>Job referral</option><option>Internship</option><option>Mentorship</option><option>Business patronage</option><option>Contract opportunity</option></select></div>
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Profession / skill area</label><input placeholder="e.g. Software Engineering" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"/></div>
+              <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Describe what you need</label><textarea placeholder="Tell the family how they can help…" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;resize:none;min-height:72px;background:var(--cream);"></textarea></div>
+              <button style="background:var(--green-700);border:none;border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">Submit for review</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== DONATIONS & FAMILY PURSE ===== -->
+      <sc-if value="{{ isDonations }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;position:relative;">
+        <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:18px;align-items:start;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;">
+            <h3 style="margin:0 0 16px;font-size:16px;font-weight:800;color:var(--ink);">Make a donation</h3>
+            <label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Donate to</label>
+            <div style="display:flex;flex-direction:column;gap:9px;margin:8px 0 18px;">
+              <label style="display:flex;align-items:center;gap:10px;border:2px solid var(--green-600);background:var(--green-050);border-radius:11px;padding:12px 14px;cursor:pointer;"><input type="radio" name="purpose" checked/><div><div style="font-size:13.5px;font-weight:700;color:var(--ink);">General family purse</div><div style="font-size:11.5px;color:var(--muted);">Supports welfare, events and emergencies</div></div></label>
+              <label style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;padding:12px 14px;cursor:pointer;"><input type="radio" name="purpose"/><div><div style="font-size:13.5px;font-weight:700;color:var(--ink);">University tuition for Bisi Babajide</div><div style="font-size:11.5px;color:var(--muted);">Approved support request · 65% funded</div></div></label>
+            </div>
+            <label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Amount</label>
+            <div style="display:flex;gap:8px;margin:8px 0 10px;flex-wrap:wrap;">
+              <button style="border:1px solid var(--line);background:var(--cream);border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;">₦5,000</button>
+              <button style="border:2px solid var(--green-600);background:var(--green-050);border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;color:var(--green-700);cursor:pointer;">₦10,000</button>
+              <button style="border:1px solid var(--line);background:var(--cream);border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;">₦25,000</button>
+              <button style="border:1px solid var(--line);background:var(--cream);border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Other</button>
+            </div>
+            <label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Payment method</label>
+            <select style="margin:8px 0 14px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"><option>Card / Paystack</option><option>Bank transfer (upload proof)</option><option>Flutterwave</option></select>
+            <label style="font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;margin-bottom:16px;"><input type="checkbox"/>Donate anonymously</label>
+            <button onClick="{{ doDonate }}" style="width:100%;background:var(--green-700);border:none;border-radius:12px;padding:13px;font-size:14.5px;font-weight:700;color:#fff;cursor:pointer;" style-hover="background:var(--green-600)">Donate ₦10,000</button>
+            <p style="margin:12px 0 0;font-size:11px;color:var(--muted);text-align:center;">Secured by Paystack · You will receive an email receipt</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="background:var(--green-900);border-radius:16px;padding:22px;color:#dce8df;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9fc0ab;">Family Purse Balance</div>
+              <div style="font-size:34px;font-weight:800;color:#fff;margin-top:4px;">₦8,420,500</div>
+              <div style="display:flex;gap:22px;margin-top:16px;">
+                <div><div style="font-size:11px;color:#9fc0ab;">Raised this month</div><div style="font-size:17px;font-weight:800;color:var(--gold);">₦640,000</div></div>
+                <div><div style="font-size:11px;color:#9fc0ab;">Disbursed</div><div style="font-size:17px;font-weight:800;color:#fff;">₦1,180,000</div></div>
+                <div><div style="font-size:11px;color:#9fc0ab;">Pending</div><div style="font-size:17px;font-weight:800;color:#fff;">₦95,000</div></div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;"><h3 style="margin:0;font-size:14.5px;font-weight:800;color:var(--ink);">Recent Transactions</h3><button style="background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Export report</button></div>
+              <div style="display:flex;flex-direction:column;">
+                <div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);"><div style="width:32px;height:32px;border-radius:8px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div style="flex:1;"><div style="font-size:12.5px;font-weight:700;color:var(--ink);">Folake Babajide</div><div style="font-size:11px;color:var(--muted);">General purse · today</div></div><b style="font-size:13px;color:var(--green-600);">+₦25,000</b></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);"><div style="width:32px;height:32px;border-radius:8px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div style="flex:1;"><div style="font-size:12.5px;font-weight:700;color:var(--ink);">Tunde Olorunfemi</div><div style="font-size:11px;color:var(--muted);">Bisi's tuition · yesterday</div></div><b style="font-size:13px;color:var(--green-600);">+₦50,000</b></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:9px 0;"><div style="width:32px;height:32px;border-radius:8px;background:#f3e6e6;color:#a23b3b;display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div><div style="flex:1;"><div style="font-size:12.5px;font-weight:700;color:var(--ink);">Burial support — Asaya branch</div><div style="font-size:11px;color:var(--muted);">Disbursement · 3 days ago</div></div><b style="font-size:13px;color:#a23b3b;">−₦300,000</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ showConfirm }}" hint-placeholder-val="{{ false }}">
+        <div style="position:fixed;inset:0;background:rgba(16,30,20,0.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:50;" onClick="{{ closeConfirm }}">
+          <div style="background:var(--card);border-radius:20px;padding:34px;max-width:380px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3);">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--green-050);display:flex;align-items:center;justify-content:center;margin:0 auto;"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+            <h2 style="margin:18px 0 6px;font-size:22px;font-weight:800;color:var(--ink);">Thank you!</h2>
+            <p style="margin:0;font-size:14px;color:var(--ink-soft);line-height:1.55;">Your gift of <b style="color:var(--green-700);">₦10,000</b> to the general family purse has been received. A receipt is on its way to your email.</p>
+            <div style="background:var(--cream);border-radius:11px;padding:12px;margin:18px 0;font-size:12px;color:var(--muted);">Ref: OAF-DN-2026-0613 · Adebayo Babajide</div>
+            <button onClick="{{ closeConfirm }}" style="width:100%;background:var(--green-700);border:none;border-radius:11px;padding:12px;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Done</button>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <!-- ===== APPROVALS ===== -->
+      <sc-if value="{{ isApprovals }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1080px;animation:ofgUp .25s ease;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
+          <button style="border:none;background:var(--green-600);color:#fff;border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;">Members · 2</button>
+          <button style="border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer;">Events · 1</button>
+          <button style="border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer;">Support · 1</button>
+          <button style="border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer;">Donations · 0</button>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;">
+          <div style="padding:18px 20px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:14px;">
+            <div style="width:42px;height:42px;border-radius:11px;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">BB</div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:800;color:var(--ink);">New member: Bisi Babajide</div><div style="font-size:12px;color:var(--muted);">Babajide branch · Child of Chief Samuel Babajide · submitted by Chief Samuel Babajide · 2h ago</div></div>
+            <div style="display:flex;gap:8px;"><button style="background:var(--green-700);border:none;border-radius:9px;padding:9px 15px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Approve</button><button style="background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Changes</button><button style="background:#fbeaea;border:none;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#a23b3b;cursor:pointer;">Reject</button></div>
+          </div>
+          <div style="padding:18px 20px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:14px;">
+            <div style="width:42px;height:42px;border-radius:11px;background:#486fb0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">TO</div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:800;color:var(--ink);">Profile edit: Tope Olanipekun</div><div style="font-size:12px;color:var(--muted);">Olanipekun branch · phone &amp; location updated · submitted 6h ago</div></div>
+            <div style="display:flex;gap:8px;"><button style="background:var(--green-700);border:none;border-radius:9px;padding:9px 15px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Approve</button><button style="background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Changes</button><button style="background:#fbeaea;border:none;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#a23b3b;cursor:pointer;">Reject</button></div>
+          </div>
+          <div style="padding:18px 20px;display:flex;align-items:center;gap:14px;">
+            <div style="width:42px;height:42px;border-radius:11px;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 13l-2-1.8a2.3 2.3 0 113.2-3.2l.8.8.8-.8A2.3 2.3 0 0117 11"/></svg></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:800;color:var(--ink);">Support request: Surgery for Pa Gabriel Asaya</div><div style="font-size:12px;color:var(--muted);">Asaya branch · ₦1,200,000 · submitted 1d ago</div></div>
+            <div style="display:flex;gap:8px;"><button style="background:var(--green-700);border:none;border-radius:9px;padding:9px 15px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Approve</button><button style="background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Changes</button><button style="background:#fbeaea;border:none;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#a23b3b;cursor:pointer;">Reject</button></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== REPORTS ===== -->
+      <sc-if value="{{ isReports }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1180px;animation:ofgUp .25s ease;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Profiles complete</div><div style="font-size:26px;font-weight:800;color:var(--ink);margin-top:4px;">71%</div><div style="font-size:11.5px;color:var(--green-600);font-weight:600;">108 of 152</div></div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Branches mapped</div><div style="font-size:26px;font-weight:800;color:var(--ink);margin-top:4px;">9 / 12</div><div style="font-size:11.5px;color:var(--gold);font-weight:600;">3 in progress</div></div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Avg. approval time</div><div style="font-size:26px;font-weight:800;color:var(--ink);margin-top:4px;">1.4 days</div><div style="font-size:11.5px;color:var(--green-600);font-weight:600;">−0.3 vs last month</div></div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Purse raised (YTD)</div><div style="font-size:26px;font-weight:800;color:var(--ink);margin-top:4px;">₦8.4M</div><div style="font-size:11.5px;color:var(--green-600);font-weight:600;">+12% YoY</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <h3 style="margin:0 0 16px;font-size:14.5px;font-weight:800;color:var(--ink);">Members by branch</h3>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;"><span style="color:var(--ink-soft);font-weight:600;">Babajide</span><b style="color:var(--ink);">34</b></div><div style="height:8px;background:var(--cream);border-radius:999px;"><div style="width:100%;height:100%;background:#1f6f54;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;"><span style="color:var(--ink-soft);font-weight:600;">Olorunfemi</span><b style="color:var(--ink);">28</b></div><div style="height:8px;background:var(--cream);border-radius:999px;"><div style="width:82%;height:100%;background:#c98a1e;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;"><span style="color:var(--ink-soft);font-weight:600;">Olanipekun</span><b style="color:var(--ink);">22</b></div><div style="height:8px;background:var(--cream);border-radius:999px;"><div style="width:65%;height:100%;background:#486fb0;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;"><span style="color:var(--ink-soft);font-weight:600;">Bankole</span><b style="color:var(--ink);">19</b></div><div style="height:8px;background:var(--cream);border-radius:999px;"><div style="width:56%;height:100%;background:#6a8f3c;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;"><span style="color:var(--ink-soft);font-weight:600;">Asaya</span><b style="color:var(--ink);">14</b></div><div style="height:8px;background:var(--cream);border-radius:999px;"><div style="width:41%;height:100%;background:#8a5a8f;border-radius:999px;"></div></div></div>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:18px;"><button style="flex:1;background:var(--green-700);border:none;border-radius:10px;padding:10px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Export directory (CSV)</button><button style="flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Export tree (PDF)</button></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;">
+            <h3 style="margin:0 0 14px;font-size:14.5px;font-weight:800;color:var(--ink);">Audit log</h3>
+            <div style="display:flex;flex-direction:column;gap:0;">
+              <div style="display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line-soft);"><div style="width:8px;height:8px;border-radius:50%;background:var(--green-500);margin-top:5px;flex-shrink:0;"></div><div style="font-size:12.5px;color:var(--ink-soft);"><b style="color:var(--ink);">Chief Samuel Babajide</b> added member <b style="color:var(--ink);">Bisi Babajide</b><div style="font-size:11px;color:var(--muted);">Pending approval · Today 09:14</div></div></div>
+              <div style="display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line-soft);"><div style="width:8px;height:8px;border-radius:50%;background:#486fb0;margin-top:5px;flex-shrink:0;"></div><div style="font-size:12.5px;color:var(--ink-soft);"><b style="color:var(--ink);">System</b> created birthday event for <b style="color:var(--ink);">Yetunde Olorunfemi</b><div style="font-size:11px;color:var(--muted);">Auto-generated · Today 00:01</div></div></div>
+              <div style="display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line-soft);"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:5px;flex-shrink:0;"></div><div style="font-size:12.5px;color:var(--ink-soft);"><b style="color:var(--ink);">Tunde Olorunfemi</b> approved support request <b style="color:var(--ink);">Bisi's tuition</b><div style="font-size:11px;color:var(--muted);">Yesterday 16:40</div></div></div>
+              <div style="display:flex;gap:11px;padding:10px 0;"><div style="width:8px;height:8px;border-radius:50%;background:#a23b3b;margin-top:5px;flex-shrink:0;"></div><div style="font-size:12.5px;color:var(--ink-soft);"><b style="color:var(--ink);">Foundation Admin</b> recorded disbursement <b style="color:var(--ink);">₦300,000</b><div style="font-size:11px;color:var(--muted);">3 days ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== SETTINGS ===== -->
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:980px;animation:ofgUp .25s ease;display:flex;flex-direction:column;gap:18px;">
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;">
+          <h3 style="margin:0 0 16px;font-size:15px;font-weight:800;color:var(--ink);">Your profile</h3>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;"><div style="width:64px;height:64px;border-radius:16px;background:var(--green-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;">AB</div><button style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 15px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;">Change photo</button></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Full name</label><input value="Adebayo Babajide" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Email</label><input value="adebayo@email.com" style="margin-top:6px;width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;outline:none;background:var(--cream);"/></div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;">
+          <h3 style="margin:0 0 6px;font-size:15px;font-weight:800;color:var(--ink);">Privacy &amp; visibility</h3>
+          <p style="margin:0 0 16px;font-size:12.5px;color:var(--muted);">Choose who can see each detail on your profile.</p>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line-soft);"><span style="font-size:13.5px;color:var(--ink);font-weight:600;">Phone number</span><select style="border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;background:var(--cream);color:var(--ink-soft);"><option>All verified members</option><option>My branch only</option><option>Admins only</option><option>Hidden</option></select></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line-soft);"><span style="font-size:13.5px;color:var(--ink);font-weight:600;">Email address</span><select style="border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;background:var(--cream);color:var(--ink-soft);"><option>My branch only</option><option>All verified members</option><option>Admins only</option><option>Hidden</option></select></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;"><span style="font-size:13.5px;color:var(--ink);font-weight:600;">Date of birth</span><select style="border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;background:var(--cream);color:var(--ink-soft);"><option>All verified members</option><option>My branch only</option><option>Hidden</option></select></div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;">
+          <h3 style="margin:0 0 4px;font-size:15px;font-weight:800;color:var(--ink);">Role management <span style="font-size:11px;font-weight:700;color:#a8791f;background:var(--gold-soft);padding:2px 8px;border-radius:999px;vertical-align:middle;">Admin</span></h3>
+          <p style="margin:0 0 16px;font-size:12.5px;color:var(--muted);">Family heads, branch admins and the treasurer.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--cream);border-radius:11px;"><div style="width:34px;height:34px;border-radius:9px;background:#1f6f54;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">SB</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Chief Samuel Babajide</div><div style="font-size:11px;color:var(--muted);">Babajide branch</div></div><span style="font-size:11px;font-weight:700;color:var(--green-700);background:var(--green-050);padding:4px 10px;border-radius:999px;">Family Head</span></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--cream);border-radius:11px;"><div style="width:34px;height:34px;border-radius:9px;background:#c98a1e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">TO</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Tunde Olorunfemi</div><div style="font-size:11px;color:var(--muted);">Foundation-wide</div></div><span style="font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);padding:4px 10px;border-radius:999px;">Foundation Admin</span></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--cream);border-radius:11px;"><div style="width:34px;height:34px;border-radius:9px;background:#6a8f3c;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">KB</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">Kunle Bankole</div><div style="font-size:11px;color:var(--muted);">Bankole branch · Treasurer</div></div><span style="font-size:11px;font-weight:700;color:#8a6414;background:var(--gold-soft);padding:4px 10px;border-radius:999px;">Treasurer</span></div>
+          </div>
+          <button style="margin-top:14px;background:var(--green-700);border:none;border-radius:10px;padding:10px 16px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">Assign a role</button>
+        </div>
+        <p style="text-align:center;font-size:11.5px;color:var(--muted);padding-bottom:8px;">Olukotun Agura Family Foundation · A private family portal · Access is invite-only</p>
+      </div>
+      </sc-if>
+
+      <!--MORE_SCREENS-->
+
+    </main>
+  </div>
+</div>
+</sc-if>
+
+<!-- ===== LOGIN ===== -->
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;height:100vh;">
+  <div style="flex:1;background:var(--green-900);display:flex;flex-direction:column;justify-content:center;padding:60px;color:#fff;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(116,198,157,0.18),transparent 70%);"></div>
+    <svg width="64" height="64" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#c79a3a" stroke-width="2"/><path d="M24 39 V21" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M24 25 16 18 M24 26 32 19 M24 22 24 13" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="12" r="4" fill="#74c69d"/><circle cx="15" cy="17" r="3.4" fill="#40916c"/><circle cx="33" cy="19" r="3.4" fill="#40916c"/></svg>
+    <h1 style="font-size:34px;font-weight:800;margin:26px 0 0;line-height:1.15;max-width:440px;">Olukotun Agura Family Foundation</h1>
+    <p style="font-size:16px;color:#bcd2c2;margin:16px 0 0;max-width:420px;line-height:1.6;">One family. One heritage. A trusted digital home where every verified member can understand their lineage, celebrate together, and remember those who came before.</p>
+    <div style="display:flex;gap:5px;margin-top:34px;"><span style="width:46px;height:7px;border-radius:4px;background:#008751;"></span><span style="width:46px;height:7px;border-radius:4px;background:#fff;"></span><span style="width:46px;height:7px;border-radius:4px;background:#008751;"></span></div>
+  </div>
+  <div style="width:480px;flex-shrink:0;background:var(--card);display:flex;flex-direction:column;justify-content:center;padding:60px;">
+    <h2 style="font-size:25px;font-weight:800;margin:0;color:var(--ink);">Welcome back</h2>
+    <p style="font-size:14px;color:var(--muted);margin:7px 0 28px;">Sign in to your family portal. Access is invite-only.</p>
+    <label style="font-size:12.5px;font-weight:700;color:var(--ink-soft);">Email address</label>
+    <input value="adebayo@familyportal.ng" style="margin:7px 0 18px;width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:11px;font-size:14px;outline:none;background:var(--cream);color:var(--ink);"/>
+    <label style="font-size:12.5px;font-weight:700;color:var(--ink-soft);">Password</label>
+    <input type="password" value="familyfirst" style="margin:7px 0 10px;width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:11px;font-size:14px;outline:none;background:var(--cream);color:var(--ink);"/>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;"><label style="font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;"><input type="checkbox" checked/>Remember me</label><a style="font-size:12.5px;color:var(--green-600);font-weight:700;cursor:pointer;">Forgot password?</a></div>
+    <button onClick="{{ login }}" style="width:100%;padding:14px;background:var(--green-700);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;" style-hover="background:var(--green-600)">Sign in</button>
+    <button style="width:100%;padding:13px;margin-top:11px;background:var(--card);color:var(--ink-soft);border:1px solid var(--line);border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;" style-hover="background:var(--cream)"><svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M22 12c0-.7-.1-1.4-.2-2H12v4h5.6a4.8 4.8 0 01-2 3.2v2.6h3.3c1.9-1.8 3-4.4 3-7.8z"/><path fill="#34A853" d="M12 23c2.7 0 5-.9 6.6-2.4l-3.3-2.6c-.9.6-2 1-3.3 1-2.6 0-4.7-1.7-5.5-4.1H3.1v2.6A10 10 0 0012 23z"/><path fill="#FBBC05" d="M6.5 14.9a6 6 0 010-3.8V8.5H3.1a10 10 0 000 9z"/><path fill="#EA4335" d="M12 6.6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 003.1 8.5l3.4 2.6C7.3 8.3 9.4 6.6 12 6.6z"/></svg>Continue with Google</button>
+    <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.5;">By signing in you agree to uphold the values and privacy of the Olukotun Agura family.</p>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  state = { authed: true, screen: 'dashboard', treeSel: 'olukotun', dirSearch: '', dirBranch: 'all', memberId: null, detail: null, donateStep: 0 };
+
+  genMeta = {
+    gen1: { label: '1st Generation', bg: '#fbf0d2', bd: '#d9ad4e', fg: '#7a5a16', sub: '#9c7a2c', chipFg: '#8a6414' },
+    gen2: { label: '2nd Generation', bg: '#dcefe0', bd: '#4caa73', fg: '#1f5a38', sub: '#3f7e58', chipFg: '#1f5a38' },
+    gen3: { label: '3rd Generation', bg: '#d3ecec', bd: '#3f9a9a', fg: '#1d5a5a', sub: '#3f8484', chipFg: '#1d5a5a' },
+    gen4: { label: '4th Generation', bg: '#dbe8f7', bd: '#5183bd', fg: '#274a73', sub: '#4a6c92', chipFg: '#274a73' },
+    gen5: { label: '5th Generation', bg: '#ece1f6', bd: '#9a6fc4', fg: '#5a3f7a', sub: '#7a5e96', chipFg: '#5a3f7a' },
+  };
+
+  navList = ['dashboard','tree','members','branches','events','announcements','celebrations','remembrance','support','work','donations','approvals','reports','settings'];
+
+  titles = {
+    dashboard: ['Welcome back, Adebayo', 'Stay connected. Stay informed. Stay united.'],
+    tree: ['Family Tree', 'Explore our heritage and lineage'],
+    members: ['Member Directory', 'Search and connect with verified family members'],
+    branches: ['Family Branches', 'The twelve lines of the Olukotun Agura family'],
+    events: ['Events', 'Family gatherings, meetings and milestones'],
+    announcements: ['Announcements', 'Important updates from across the family'],
+    celebrations: ['Celebrations', 'Birthdays and wedding anniversaries'],
+    remembrance: ['Remembrance', 'Honouring those who came before us'],
+    support: ['Support Requests', 'Family welfare, governed with care'],
+    work: ['Work & Opportunities', 'Referrals, mentorship and openings within the family'],
+    donations: ['Donations & Family Purse', 'Give transparently. Track every naira.'],
+    approvals: ['Approval Queue', 'Review pending changes before they go live'],
+    reports: ['Reports', 'Governance and family insights'],
+    settings: ['Settings', 'Your profile, privacy and preferences'],
+    profile: ['Member Profile', 'Identity, lineage and relationship'],
+    branch: ['Branch Profile', 'A line of the Olukotun Agura family'],
+    addmember: ['Add Family Member', 'Place a new member in the family tree'],
+  };
+
+  rawNodes = [
+    { id:'olukotun', name:'Olukotun (Agura)', sub:'The Warlord', gen:'gen1', x:8, y:248, note:'The progenitor of the family of Okorun Quarters, Ikare-Akoko. A warrior whose courage and faith founded the lineage.' },
+    { id:'amokele', name:'Amokele', sub:'The Brave Defender', gen:'gen2', x:238, y:60, note:'Son of Olukotun, remembered for valour in defence of the family land.' },
+    { id:'obeeje', name:'Obeeje', sub:'The Feared Warrior', gen:'gen2', x:238, y:248, note:'Son of Olukotun, father of the Olorunduyi and Odubado lines.' },
+    { id:'apobiruesin', name:'Apobiruesin', sub:'Warrior', gen:'gen2', x:238, y:436, note:'Son of Olukotun, a respected elder of the early family.' },
+    { id:'olorunduyi', name:'Olorunduyi', sub:'Daniel-Oliku', gen:'gen3', x:470, y:158, note:'Son of Obeeje. His descendants form the Babajide, Olorunfemi and Olanipekun branches.' },
+    { id:'odubado', name:'Odubado', sub:'Elder', gen:'gen3', x:470, y:356, note:'Son of Obeeje. His descendants form the Bankole, Asaya and Adegbola branches.' },
+    { id:'babajide', name:'Babajide', sub:'Branch line', gen:'gen4', x:712, y:66, note:'A growing branch led today by Chief Samuel Babajide.' },
+    { id:'olorunfemi', name:'Olorunfemi', sub:'Branch line', gen:'gen4', x:712, y:148, note:'A branch known for its educators and professionals.' },
+    { id:'olanipekun', name:'Olanipekun', sub:'Branch line', gen:'gen4', x:712, y:230, note:'A branch spread across Lagos, Ikare and abroad.' },
+    { id:'bankole', name:'Bankole', sub:'Branch line', gen:'gen4', x:712, y:330, note:'A branch with deep roots in trade and farming.' },
+    { id:'asaya', name:'Asaya', sub:'Branch line', gen:'gen4', x:712, y:412, note:'A close-knit branch of the Odubado line.' },
+    { id:'adegbola', name:'Adegbola', sub:'Branch line', gen:'gen4', x:712, y:494, note:'The youngest documented branch, still being mapped.' },
+  ];
+  links = [['olukotun','amokele'],['olukotun','obeeje'],['olukotun','apobiruesin'],['obeeje','olorunduyi'],['obeeje','odubado'],['olorunduyi','babajide'],['olorunduyi','olorunfemi'],['olorunduyi','olanipekun'],['odubado','bankole'],['odubado','asaya'],['odubado','adegbola']];
+
+  branchMeta = {
+    olukotun:{label:'Olukotun / Agura', color:'#c79a3a'}, amokele:{label:'Amokele', color:'#2d6a4f'},
+    obeeje:{label:'Obeeje', color:'#b5651d'}, apobiruesin:{label:'Apobiruesin', color:'#7c5295'},
+    olorunduyi:{label:'Olorunduyi / Daniel-Oliku', color:'#2f6f8f'}, odubado:{label:'Odubado', color:'#a23b3b'},
+    babajide:{label:'Babajide', color:'#1f6f54'}, olorunfemi:{label:'Olorunfemi', color:'#c98a1e'},
+    olanipekun:{label:'Olanipekun', color:'#486fb0'}, bankole:{label:'Bankole', color:'#6a8f3c'},
+    asaya:{label:'Asaya', color:'#8a5a8f'}, adegbola:{label:'Adegbola', color:'#3f8f8f'},
+  };
+
+  people = [
+    { id:'adebayo', first:'Adebayo', last:'Babajide', g:'M', branch:'babajide', gen:'gen5', loc:'Lagos, Nigeria', phone:'+234 803 123 4567', email:'adebayo@email.com', occ:'Software Engineer', rel:'You', dob:'12 Mar 1991', living:true, head:false },
+    { id:'samuel', first:'Chief Samuel', last:'Babajide', g:'M', branch:'babajide', gen:'gen4', loc:'Ikare-Akoko, Nigeria', phone:'+234 803 555 0101', email:'samuel@email.com', occ:'Retired Headmaster', rel:'Your Father', dob:'4 Jan 1958', living:true, head:true },
+    { id:'folake', first:'Folake', last:'Babajide', g:'F', branch:'babajide', gen:'gen5', loc:'Abuja, Nigeria', phone:'+234 806 220 7781', email:'folake@email.com', occ:'Medical Doctor', rel:'Your Sister', dob:'29 Sep 1994', living:true, head:false },
+    { id:'bamidele', first:'Bamidele', last:'Babajide', g:'M', branch:'babajide', gen:'gen5', loc:'London, UK', phone:'+44 7700 900321', email:'bamidele@email.com', occ:'Accountant', rel:'First Cousin', dob:'18 Jun 1989', living:true, head:false },
+    { id:'bisi', first:'Bisi', last:'Babajide', g:'F', branch:'babajide', gen:'gen5', loc:'Ibadan, Nigeria', phone:'+234 805 110 2244', email:'bisi@email.com', occ:'Student', rel:'Your Niece', dob:'2 Dec 2003', living:true, head:false },
+    { id:'tunde', first:'Tunde', last:'Olorunfemi', g:'M', branch:'olorunfemi', gen:'gen4', loc:'Lagos, Nigeria', phone:'+234 806 345 5678', email:'tunde@email.com', occ:'Lawyer', rel:'Your Uncle', dob:'15 Aug 1962', living:true, head:true },
+    { id:'yetunde', first:'Yetunde', last:'Olorunfemi', g:'F', branch:'olorunfemi', gen:'gen5', loc:'Lagos, Nigeria', phone:'+234 809 345 6789', email:'yetunde@email.com', occ:'Architect', rel:'First Cousin', dob:'17 Jun 1992', living:true, head:false },
+    { id:'wale', first:'Wale', last:'Olorunfemi', g:'M', branch:'olorunfemi', gen:'gen5', loc:'Port Harcourt, Nigeria', phone:'+234 807 901 3322', email:'wale@email.com', occ:'Civil Engineer', rel:'First Cousin', dob:'9 Nov 1988', living:true, head:false },
+    { id:'femi', first:'Dr. Femi', last:'Olanipekun', g:'M', branch:'olanipekun', gen:'gen4', loc:'Toronto, Canada', phone:'+1 416 555 0199', email:'femi@email.com', occ:'University Lecturer', rel:'1st Cousin Once Removed', dob:'23 Feb 1965', living:true, head:true },
+    { id:'ngozi', first:'Ngozi', last:'Olanipekun', g:'F', branch:'olanipekun', gen:'gen5', loc:'Abuja, Nigeria', phone:'+234 803 445 6612', email:'ngozi@email.com', occ:'Banker', rel:'Second Cousin', dob:'30 Apr 1990', living:true, head:false },
+    { id:'kunle', first:'Kunle', last:'Bankole', g:'M', branch:'bankole', gen:'gen4', loc:'Akure, Nigeria', phone:'+234 802 456 7890', email:'kunle@email.com', occ:'Businessman', rel:'Distant Cousin', dob:'11 Jul 1960', living:true, head:true },
+    { id:'aisha', first:'Aisha', last:'Bankole', g:'F', branch:'bankole', gen:'gen5', loc:'Lagos, Nigeria', phone:'+234 805 567 8901', email:'aisha@email.com', occ:'Pharmacist', rel:'Distant Cousin', dob:'14 Jan 1993', living:true, head:false },
+    { id:'gbenga', first:'Gbenga', last:'Asaya', g:'M', branch:'asaya', gen:'gen5', loc:'Ikare-Akoko, Nigeria', phone:'+234 808 223 4561', email:'gbenga@email.com', occ:'Teacher', rel:'Distant Cousin', dob:'26 Oct 1987', living:true, head:false },
+    { id:'modupe', first:'Modupe', last:'Adegbola', g:'F', branch:'adegbola', gen:'gen4', loc:'Ondo, Nigeria', phone:'+234 809 778 1230', email:'modupe@email.com', occ:'Trader', rel:'Distant Cousin', dob:'3 May 1968', living:true, head:true },
+    { id:'sade', first:'Sade', last:'Olorunduyi', g:'F', branch:'olorunduyi', gen:'gen3', loc:'Ikare-Akoko, Nigeria', phone:'+234 803 009 4471', email:'sade@email.com', occ:'Retired Nurse', rel:'Your Grand-aunt', dob:'7 Mar 1944', living:true, head:false },
+    { id:'aderonke', first:'Late Aderonke', last:'Babajide', g:'F', branch:'babajide', gen:'gen4', loc:'Ikare-Akoko, Nigeria', phone:'', email:'', occ:'Trader', rel:'Your Grandmother', dob:'1939', living:false, head:false, dod:'20 Feb 2019' },
+  ];
+
+  branchSummaries = {
+    babajide:'Led today by Chief Samuel Babajide, the Babajide branch descends from Olorunduyi and is known for its educators and professionals.',
+    olorunfemi:'A branch of lawyers, engineers and entrepreneurs spread across Lagos and the diaspora.',
+    olanipekun:'A widely dispersed branch with strong academic roots, from Ikare to Toronto.',
+    bankole:'Deep roots in trade and farming around Akure and Ikare-Akoko.',
+    asaya:'A close-knit branch of the Odubado line based largely in Ikare-Akoko.',
+    adegbola:'The youngest documented branch, still being actively mapped by family heads.',
+    olukotun:'The founding line of Olukotun the Warlord, progenitor of the entire family.',
+    obeeje:'The line of Obeeje the Feared Warrior, father of Olorunduyi and Odubado.',
+    olorunduyi:'The Daniel-Oliku line, ancestor of the Babajide, Olorunfemi and Olanipekun branches.',
+    odubado:'Ancestor of the Bankole, Asaya and Adegbola branches.',
+    amokele:'The line of Amokele the Brave Defender.',
+    apobiruesin:'The line of Apobiruesin, a respected early elder.',
+  };
+
+  initials(p){ return (p.first.replace(/^(Chief |Dr. |Late |Pastor )/,'')[0]||'') + (p.last[0]||''); }
+  shapePerson(p){
+    const b=this.branchMeta[p.branch]||{label:'—',color:'#888'}; const g=this.genMeta[p.gen];
+    return { ...p, name:p.first+' '+p.last, initials:this.initials(p).toUpperCase(),
+      branchLabel:b.label, branchColor:b.color, genLabel:g.label, genBg:g.bg, genBd:g.bd, genFg:g.chipFg,
+      gLabel:p.g==='M'?'Male':'Female', statusLabel:p.living?'Living':'Deceased',
+      onOpen:()=>this.setState({screen:'profile', memberId:p.id}) };
+  }
+
+  go(s) { this.setState({ screen: s, memberId: null, detail: null, donateStep: 0 }); }
+
+  renderVals() {
+    const NW = 152, NH = 50;
+    const byId = {}; this.rawNodes.forEach(n => byId[n.id] = n);
+    const nav = {};
+    this.navList.forEach(k => nav[k] = () => this.go(k));
+    const navbg = {};
+    this.navList.forEach(k => navbg[k] = this.state.screen === k ? 'var(--green-600)' : 'transparent');
+
+    const treeNodes = this.rawNodes.map(n => {
+      const g = this.genMeta[n.gen];
+      const sel = this.state.treeSel === n.id;
+      return {
+        name: n.name, sub: n.sub, fg: g.fg, subfg: g.sub,
+        onClick: () => this.setState({ treeSel: n.id }),
+        style: `position:absolute;left:${n.x}px;top:${n.y}px;width:${NW}px;min-height:${NH}px;text-align:left;cursor:pointer;background:${g.bg};border:${sel?'2.5px':'1.5px'} solid ${g.bd};border-radius:11px;padding:9px 13px;box-shadow:${sel?'0 6px 18px rgba(16,49,31,0.16)':'0 1px 3px rgba(0,0,0,0.04)'};transition:box-shadow .15s,transform .15s;transform:${sel?'translateY(-1px)':'none'};`,
+      };
+    });
+
+    const linkPaths = this.links.map(([a, b]) => {
+      const p = byId[a], c = byId[b];
+      const px = p.x + NW, py = p.y + NH / 2, cx = c.x, cy = c.y + NH / 2, mx = (px + cx) / 2;
+      return { d: `M${px},${py} C${mx},${py} ${mx},${cy} ${cx},${cy}` };
+    });
+
+    const sn = byId[this.state.treeSel] || this.rawNodes[0];
+    const sg = this.genMeta[sn.gen];
+    const treeSelNode = { name: sn.name, sub: sn.sub, note: sn.note, genLabel: sg.label, genBg: sg.bg, genFg: sg.chipFg };
+
+    const t = this.titles[this.state.screen] || ['', ''];
+
+    // Directory
+    const q = this.state.dirSearch.trim().toLowerCase();
+    const fb = this.state.dirBranch;
+    const dirPeople = this.people
+      .filter(p => fb === 'all' || p.branch === fb)
+      .filter(p => !q || (p.first + ' ' + p.last).toLowerCase().includes(q) || (this.branchMeta[p.branch]||{}).label.toLowerCase().includes(q))
+      .map(p => this.shapePerson(p));
+
+    const branchChips = [{ key:'all', label:'All branches', color:'#6f7d74' }]
+      .concat(Object.keys(this.branchMeta).filter(k=>['babajide','olorunfemi','olanipekun','bankole','asaya','adegbola'].includes(k)).map(k=>({ key:k, label:this.branchMeta[k].label, color:this.branchMeta[k].color })))
+      .map(c => ({ ...c, active: this.state.dirBranch===c.key, onClick:()=>this.setState({dirBranch:c.key}),
+        style:`display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid ${this.state.dirBranch===c.key?c.color:'var(--line)'};background:${this.state.dirBranch===c.key?c.color:'var(--card)'};color:${this.state.dirBranch===c.key?'#fff':'var(--ink-soft)'};` }));
+
+    // Branch cards
+    const branchKeys = ['babajide','olorunfemi','olanipekun','bankole','asaya','adegbola','amokele','apobiruesin','olukotun','obeeje','olorunduyi','odubado'];
+    const counts = { babajide:34, olorunfemi:28, olanipekun:22, bankole:19, asaya:14, adegbola:9, amokele:7, apobiruesin:5, olukotun:1, obeeje:3, olorunduyi:6, odubado:5 };
+    const heads = { babajide:'Chief Samuel Babajide', olorunfemi:'Tunde Olorunfemi', olanipekun:'Dr. Femi Olanipekun', bankole:'Kunle Bankole', asaya:'Pa Gabriel Asaya', adegbola:'Modupe Adegbola', amokele:'—', apobiruesin:'—', olukotun:'—', obeeje:'—', olorunduyi:'—', odubado:'—' };
+    const branchCards = branchKeys.map(k => ({ key:k, label:this.branchMeta[k].label, color:this.branchMeta[k].color, summary:this.branchSummaries[k], count:counts[k], head:heads[k],
+      onOpen:()=>this.setState({screen:'branch', detail:k}),
+      barStyle:`height:5px;background:${this.branchMeta[k].color};border-radius:999px 999px 0 0;` }));
+
+    // Current member profile
+    const rawM = this.people.find(p => p.id === this.state.memberId) || this.people[1];
+    const currentMember = this.shapePerson(rawM);
+    const relatives = this.people.filter(p => p.branch===rawM.branch && p.id!==rawM.id).slice(0,4).map(p=>this.shapePerson(p));
+
+    // Current branch
+    const bk = this.state.detail || 'babajide';
+    const curBranch = { key:bk, label:(this.branchMeta[bk]||{}).label, color:(this.branchMeta[bk]||{}).color, summary:this.branchSummaries[bk], count:counts[bk]||0, head:heads[bk]||'—' };
+    const branchMembers = this.people.filter(p=>p.branch===bk).map(p=>this.shapePerson(p));
+
+    const S = this.state.screen;
+    return {
+      isApp: this.state.authed, isLogin: !this.state.authed,
+      isDashboard: S==='dashboard', isTree: S==='tree', isMembers: S==='members', isProfile: S==='profile',
+      isBranches: S==='branches', isBranch: S==='branch', isEvents: S==='events', isAnnouncements: S==='announcements',
+      isCelebrations: S==='celebrations', isRemembrance: S==='remembrance', isSupport: S==='support', isWork: S==='work',
+      isDonations: S==='donations', isApprovals: S==='approvals', isReports: S==='reports', isSettings: S==='settings',
+      isAddMember: S==='addmember',
+      nav, navbg,
+      pageTitle: t[0], pageSubtitle: t[1],
+      login: () => this.setState({ authed: true, screen: 'dashboard' }),
+      logout: () => this.setState({ authed: false }),
+      treeNodes, treeLinks: linkPaths, treeSelNode,
+      dirPeople, branchChips,
+      dirSearch: this.state.dirSearch, onDirSearch: e => this.setState({ dirSearch: e.target.value }),
+      branchCards, curBranch, branchMembers,
+      currentMember, relatives,
+      goAddMember: () => this.setState({ screen:'addmember' }),
+      goBranches: () => this.setState({ screen:'branches' }),
+      goMembers: () => this.setState({ screen:'members' }),
+      showConfirm: this.state.donateStep === 1,
+      doDonate: () => this.setState({ donateStep: 1 }),
+      closeConfirm: () => this.setState({ donateStep: 0 }),
+      goDonations: () => this.setState({ screen:'donations', donateStep:0 }),
+    };
+  }
+}
+</script>
+</body>
+</html>

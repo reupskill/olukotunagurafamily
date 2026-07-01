@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;padding:0}
+  ::-webkit-scrollbar{width:11px;height:10px}
+  ::-webkit-scrollbar-track{background:#eee9dc}
+  ::-webkit-scrollbar-thumb{background:#c2cbc0;border-radius:8px}
+  a{text-decoration:none}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes leafPop{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+  .leaf{opacity:0;animation:leafPop .6s cubic-bezier(.2,.8,.3,1.4) forwards}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="--green-900:#10301f;--green-800:#173d29;--green-700:#1f5138;--green-600:#2d6a4f;--green-500:#40916c;--green-300:#74c69d;--green-050:#eaf3ec;--gold:#c79a3a;--gold-deep:#a8791f;--gold-soft:#f6eccf;--navy:#22405f;--cream:#f7f3ea;--cream-2:#efe9db;--ink:#16241c;--ink-soft:#3c4a42;--muted:#6f7d74;--line:#e4ddcc;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;">
+
+<!-- ===== NAV ===== -->
+<nav style="position:sticky;top:0;z-index:50;background:rgba(247,243,234,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);">
+  <div style="max-width:1200px;margin:0 auto;padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;background:none;border:none;cursor:pointer;padding:0;">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="var(--gold)" stroke-width="2"></circle><path d="M24 39 V21" stroke="var(--green-700)" stroke-width="2" stroke-linecap="round"></path><path d="M24 25 16 18 M24 26 32 19 M24 22 24 13" stroke="var(--green-700)" stroke-width="1.5" stroke-linecap="round"></path><circle cx="24" cy="12" r="4" fill="#74c69d"></circle><circle cx="15" cy="17" r="3.4" fill="#40916c"></circle><circle cx="33" cy="19" r="3.4" fill="#40916c"></circle></svg>
+      <div style="line-height:1.12;text-align:left;">
+        <div style="font-size:14px;font-weight:800;letter-spacing:0.02em;color:var(--ink);">Olukotun Agura</div>
+        <div style="font-size:9.5px;font-weight:700;letter-spacing:0.14em;color:var(--gold-deep);">FAMILY FOUNDATION</div>
+      </div>
+    </button>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" style="width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </sc-if>
+    <sc-if value="{{ isDesktopNav }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="5">
+          <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.label }}</button>
+        </sc-for>
+        <a href="Family Dashboard.dc.html" style="margin-left:8px;background:var(--gold);color:#3a2b08;padding:10px 17px;border-radius:999px;font-size:13.5px;font-weight:700;">Member sign in →</a>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid var(--line);background:var(--cream);padding:8px 16px 16px;">
+      <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="5">
+        <button onClick="{{ l.onClick }}" style="{{ l.mStyle }}">{{ l.label }}</button>
+      </sc-for>
+      <a href="Family Dashboard.dc.html" style="display:block;text-align:center;margin-top:12px;background:var(--gold);color:#3a2b08;padding:14px;border-radius:12px;font-size:15px;font-weight:700;">Member sign in →</a>
+    </div>
+  </sc-if>
+</nav>
+
+<!-- ============================ HOME ============================ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+  <header style="position:relative;background:var(--green-900);color:#fff;overflow:hidden;">
+    <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12;pointer-events:none;">
+      <g stroke="#74c69d" fill="none" stroke-width="2" stroke-linecap="round"><path d="M250 520 L250 250 M250 300 C200 270 170 240 150 190 M250 300 C300 270 330 240 350 190 M250 360 C210 340 190 320 175 285 M250 360 C290 340 310 320 325 285 M250 250 C240 210 230 180 250 130 M250 250 C260 210 270 180 250 130"></path></g>
+      <g fill="#40916c"><circle cx="150" cy="190" r="10"></circle><circle cx="350" cy="190" r="10"></circle><circle cx="175" cy="285" r="8"></circle><circle cx="325" cy="285" r="8"></circle><circle cx="250" cy="130" r="12"></circle></g>
+    </svg>
+    <div style="position:absolute;top:-120px;right:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(116,198,157,0.16),transparent 68%);"></div>
+    <div style="position:relative;max-width:1000px;margin:0 auto;padding:{{ heroPad }};text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:7px 15px;font-size:11.5px;font-weight:600;letter-spacing:0.02em;color:#cfe0d4;animation:fadeUp .6s ease both;"><span style="width:7px;height:7px;border-radius:50%;background:var(--green-300);"></span>Descendants of Olukotun Agura · Okorun Quarters, Ikare-Akoko</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ h1Size }};line-height:1.08;letter-spacing:-0.01em;margin:22px auto 0;max-width:800px;animation:fadeUp .6s ease .05s both;">One family, many generations, a single root.</h1>
+      <p style="font-size:{{ leadSize }};line-height:1.6;color:#bcd2c2;max-width:600px;margin:20px auto 0;animation:fadeUp .6s ease .12s both;">From a line of warriors and warlords, the Olukotun Agura family has grown into many clans spread across Ikare-Akoko, Nigeria and the world. This is our home online — a place to know our story, find our people, and keep our heritage alive.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;animation:fadeUp .6s ease .18s both;">
+        <button onClick="{{ goHistory }}" style="background:var(--gold);color:#3a2b08;padding:15px 26px;border-radius:999px;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(199,154,58,0.26);">Read our story</button>
+        <button onClick="{{ goTree }}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;padding:15px 24px;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;">See the family tree</button>
+      </div>
+      <div style="display:flex;gap:5px;justify-content:center;margin-top:36px;animation:fadeUp .6s ease .24s both;"><span style="width:48px;height:6px;border-radius:4px;background:#008751;"></span><span style="width:48px;height:6px;border-radius:4px;background:#fff;"></span><span style="width:48px;height:6px;border-radius:4px;background:#008751;"></span></div>
+    </div>
+    <div style="position:relative;border-top:1px solid rgba(255,255,255,0.09);background:rgba(0,0,0,0.14);">
+      <div style="max-width:1000px;margin:0 auto;padding:24px;display:grid;grid-template-columns:{{ col4 }};gap:18px;text-align:center;">
+        <div><div style="font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:var(--gold);">6</div><div style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:#9fc0ab;text-transform:uppercase;margin-top:2px;">Family clans</div></div>
+        <div><div style="font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:var(--gold);">5</div><div style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:#9fc0ab;text-transform:uppercase;margin-top:2px;">Generations</div></div>
+        <div><div style="font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:var(--gold);">1912</div><div style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:#9fc0ab;text-transform:uppercase;margin-top:2px;">A faith embraced</div></div>
+        <div><div style="font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:var(--gold);">1</div><div style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:#9fc0ab;text-transform:uppercase;margin-top:2px;">Common ancestor</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- who we are -->
+  <section style="max-width:900px;margin:0 auto;padding:{{ pad }};text-align:center;">
+    <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold-deep);text-transform:uppercase;">Who we are</div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ h2Size }};line-height:1.16;margin:14px 0 0;color:var(--ink);">A warrior's household that became a family of clans</h2>
+    <p style="font-size:{{ leadSize }};line-height:1.7;color:var(--ink-soft);margin:18px auto 0;max-width:680px;">We are the descendants of Olukotun, also called Agura — a courageous warlord of Okorun Quarters in Ikare-Akoko. What began as one warrior's household has grown into a family of many clans, bound together by courage, resilience and faith. The Olukotun Agura Family Foundation exists to keep us united, to preserve our history, and to help one another thrive.</p>
+  </section>
+
+  <!-- gateways -->
+  <section style="max-width:1120px;margin:0 auto;padding:0 22px {{ padBottom }};">
+    <div style="display:grid;grid-template-columns:{{ col2 }};gap:16px;">
+      <button onClick="{{ goHistory }}" style="text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;cursor:pointer;transition:transform .18s,box-shadow .18s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,49,31,0.09)">
+        <div style="width:46px;height:46px;border-radius:13px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;color:var(--gold-deep);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 012-2h9l5 5v10M4 19a2 2 0 002 2h12a2 2 0 002-2M9 8h4M9 12h7M9 16h7"></path></svg></div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:16px 0 6px;color:var(--ink);">Our History</h3>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">From the Oshodi ancestry of Ile-Ife to the warlord Olukotun and the clans of today.</p>
+        <span style="display:inline-block;margin-top:14px;font-size:13.5px;font-weight:700;color:var(--green-700);">Read the story →</span>
+      </button>
+      <button onClick="{{ goTree }}" style="text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;cursor:pointer;transition:transform .18s,box-shadow .18s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,49,31,0.09)">
+        <div style="width:46px;height:46px;border-radius:13px;background:var(--green-050);display:flex;align-items:center;justify-content:center;color:var(--green-600);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"></circle><circle cx="18" cy="6" r="2.4"></circle><circle cx="12" cy="18" r="2.4"></circle><path d="M6 8.4v3a2 2 0 002 2h8a2 2 0 002-2v-3M12 13.4v2.2"></path></svg></div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:16px 0 6px;color:var(--ink);">The Family Tree</h3>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">Trace the lineage, generation by generation, and see how every clan connects.</p>
+        <span style="display:inline-block;margin-top:14px;font-size:13.5px;font-weight:700;color:var(--green-700);">Explore the tree →</span>
+      </button>
+      <button onClick="{{ goFoundation }}" style="text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;cursor:pointer;transition:transform .18s,box-shadow .18s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,49,31,0.09)">
+        <div style="width:46px;height:46px;border-radius:13px;background:var(--navy-soft,#e3ebf4);display:flex;align-items:center;justify-content:center;color:var(--navy);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"></path></svg></div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:16px 0 6px;color:var(--ink);">The Foundation</h3>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">Our aims, our welfare and empowerment programmes, and how we grow together.</p>
+        <span style="display:inline-block;margin-top:14px;font-size:13.5px;font-weight:700;color:var(--green-700);">Learn more →</span>
+      </button>
+      <button onClick="{{ goMembership }}" style="text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;cursor:pointer;transition:transform .18s,box-shadow .18s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,49,31,0.09)">
+        <div style="width:46px;height:46px;border-radius:13px;background:#f3e6e6;display:flex;align-items:center;justify-content:center;color:#a23b3b;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"></circle><path d="M3.5 19a5.5 5.5 0 0111 0M16 6.2a3 3 0 010 5.6M17 13.5c2 .6 3.5 2.3 3.5 4.5"></path></svg></div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:16px 0 6px;color:var(--ink);">Become part of it</h3>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">How family membership works, and how to join the family register.</p>
+        <span style="display:inline-block;margin-top:14px;font-size:13.5px;font-weight:700;color:var(--green-700);">Join the family →</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- values quote -->
+  <section style="background:var(--green-900);color:#dce8df;">
+    <div style="max-width:920px;margin:0 auto;padding:{{ pad }};text-align:center;">
+      <div style="font-family:'Fraunces',serif;font-size:44px;line-height:0.5;color:var(--gold);">“</div>
+      <p style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:{{ quoteSize }};line-height:1.5;color:#e6efe9;margin:16px auto 0;max-width:720px;">From Olukotun the warlord, through Amokele, Obeeje and their descendants, the family has remained united by courage, resilience and faith.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px;">
+        <div style="font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9fc0ab;">Unity</div><div style="color:var(--gold);">·</div>
+        <div style="font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9fc0ab;">Welfare</div><div style="color:var(--gold);">·</div>
+        <div style="font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9fc0ab;">Heritage</div><div style="color:var(--gold);">·</div>
+        <div style="font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9fc0ab;">Development</div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============================ HISTORY ============================ -->
+<sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="background:var(--green-900);color:#fff;">
+    <div style="max-width:820px;margin:0 auto;padding:{{ headerPad }};text-align:center;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;">Our story</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ pageTitleSize }};line-height:1.1;margin:14px 0 0;">A history written in courage</h1>
+      <p style="font-size:{{ leadSize }};line-height:1.65;color:#bcd2c2;margin:18px auto 0;max-width:600px;">The Olukotun (Agura) family of Okorun, Ikare-Akoko carries a story that stretches back generations — from the founding of Ikare land, to the warriors who defended it, to the faith that shaped the family we are today.</p>
+    </div>
+  </div>
+
+  <section style="max-width:760px;margin:0 auto;padding:{{ pad }};">
+    <div style="display:flex;flex-direction:column;gap:44px;">
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">01 · Origins</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">From Ile-Ife to Ikare</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">Our lineage is traced to the ancestral Oshodi family of Okorun, Ikare-Akoko. Oshodi was one of the high chiefs who followed the Owa-Ale from Enu-Owa Quarters in Ile-Ife to establish Ikare land. From that Oshodi line — Tunolase, Olukotun, Opa and Agbari — our family descends.</p>
+      </div>
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">02 · The warlord</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">Olukotun, the Generalissimo</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">During the migration and settlement, the Olukotun family served as the Generalissimo — responsible for the security of the people. In that role, Olukotun distinguished himself as a courageous and formidable warlord, always ready to confront invaders and protect Ikare. It is from him that our family takes its name, and its enduring spirit of courage.</p>
+      </div>
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">03 · The mountain defender</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">Amokele and the defence of the mountains</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">Olukotun's bravery was inherited by his son, whose gallantry earned him the praise-name Amokele — "the one who makes the mountain hard to breach." In the era of slave raids, when the people of Ikare took refuge in the mountains where horsemen could not easily follow, Amokele was charged with defending the settlements. He posted scouts and guards at strategic points, keeping Ikare secure through the internecine Yoruba wars and the height of the slave trade.</p>
+        <div style="background:var(--cream-2);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:16px;font-size:14.5px;line-height:1.65;color:var(--ink-soft);">Victory came at a cost. Despite triumphs over Nupe, Ekiti, Oyo and slave merchants, many of Amokele's sons — trained as warriors in his household — were killed or captured in battle. The Nupe invasions, in particular, left a heavy toll on the Olukotun warrior clan.</div>
+      </div>
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">04 · The Obeeje legacy</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">The family known by his name</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">As the family multiplied and spread, its identity remained rooted in Olukotun. Among Amokele's sons, Obeeje and Apobiruesin stood out as fearless warriors. So great was Obeeje's fame that the whole family became popularly known as the Obeeje Family.</p>
+        <div style="text-align:center;margin:20px 0 4px;"><div style="font-family:'Fraunces',serif;font-style:italic;font-size:20px;color:var(--green-700);line-height:1.4;">"Obeje, abeno mo omode o ju"</div><div style="font-size:13px;color:var(--muted);margin-top:6px;">— a proverb remembering his feared reputation in his time.</div></div>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">Obeeje fathered Olorunduyi and Odubado. Olorunduyi in turn had Babajide, Olorunfemi and Olanipekun; Odubado had Bankole, Asaya and Adegbola — the clans that make up the family today.</p>
+      </div>
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">05 · A new faith</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">From warriorhood to Christianity</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">With the decline of the wars and the arrival of Christianity in Ikare, the family began to embrace a new identity. Olorunduyi, a descendant of Obeeje, accepted the Christian faith and, on 15 May 1912, was baptised Daniel Olorunduyi by Rev. H. F. Gane of the CMS Church, Ikare. Though a committed Christian, he remained a respected hunter and warrior — a turning point that blended the family's proud heritage with a new spiritual legacy.</p>
+      </div>
+      <div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">06 · Today</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:8px 0 0;color:var(--ink);">One family, still thriving</h2>
+        <p style="font-size:16px;line-height:1.75;color:var(--ink-soft);margin:12px 0 0;">From Olukotun the warlord, through Amokele, Obeeje and their descendants, the family has remained united by courage, resilience and faith. Today, the Olukotun (Agura) family of Okorun, Ikare-Akoko continues to thrive — bound together in love, and guided by the memory of our fearless ancestors.</p>
+      </div>
+    </div>
+
+    <div style="background:var(--green-900);border-radius:20px;padding:26px;margin-top:44px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;text-align:center;">Names remembered in the Olukotun line</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;">
+        <sc-for list="{{ names }}" as="nm" hint-placeholder-count="12">
+          <span style="font-size:13px;font-weight:600;color:#dce8df;background:var(--green-800);border:1px solid rgba(255,255,255,0.08);border-radius:999px;padding:7px 14px;">{{ nm }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <button onClick="{{ goTree }}" style="background:var(--green-700);color:#fff;border:none;padding:14px 26px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;">See how everyone connects →</button>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============================ FAMILY TREE ============================ -->
+<sc-if value="{{ isTree }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="background:var(--green-900);color:#fff;">
+    <div style="max-width:820px;margin:0 auto;padding:{{ headerPad }};text-align:center;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;">The family tree</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ pageTitleSize }};line-height:1.1;margin:14px 0 0;">One tree, from a warlord to today</h1>
+      <p style="font-size:{{ leadSize }};line-height:1.65;color:#bcd2c2;margin:18px auto 0;max-width:600px;">Trace the lineage from the Oshodi ancestry and Olukotun the warlord down to the family clans of today. <b style="color:#fff;">Tap any name</b> to follow its path back to the root.</p>
+    </div>
+  </div>
+
+  <section style="max-width:1180px;margin:0 auto;padding:{{ pad }};">
+    <sc-if value="{{ isTreeSide }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start;">
+      <div style="min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:10px;">
+        <div style="overflow-x:auto;border-radius:14px;background:linear-gradient(#f4efe4 1px,transparent 1px),linear-gradient(90deg,#f4efe4 1px,transparent 1px);background-size:28px 28px;background-color:#fcfaf4;">
+          <div style="position:relative;width:1046px;height:616px;">
+            <svg style="position:absolute;inset:0;width:1046px;height:616px;pointer-events:none;" fill="none">
+              <sc-for list="{{ treeLinks }}" as="lk" hint-placeholder-count="12">
+                <path d="{{ lk.d }}" stroke="{{ lk.stroke }}" stroke-width="2.4" fill="none" opacity="{{ lk.op }}"></path>
+              </sc-for>
+            </svg>
+            <sc-for list="{{ treeNodes }}" as="n" hint-placeholder-count="13">
+              <button onClick="{{ n.onClick }}" style="{{ n.style }}">
+                <span style="display:block;font-size:13px;font-weight:800;color:{{ n.fg }};line-height:1.12;">{{ n.name }}</span>
+                <span style="display:block;font-size:9px;font-weight:700;color:{{ n.subfg }};margin-top:3px;letter-spacing:0.05em;">{{ n.sub }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;padding:14px 12px 8px;">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--muted);"><span style="width:22px;height:3px;border-radius:2px;background:var(--gold);"></span>Highlighted lineage path</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--muted);"><span style="width:13px;height:13px;border-radius:4px;border:2px solid #1f5138;"></span>Ancestors &amp; warriors</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--muted);"><span style="width:13px;height:13px;border-radius:4px;border:2px solid #1f6f54;"></span>Living family clans</div>
+        </div>
+      </div>
+      <sc-if value="{{ isTreeSide }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;position:sticky;top:88px;">
+        <div style="font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:{{ selNode.color }};text-transform:uppercase;">{{ selNode.sub }}</div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:26px;line-height:1.12;margin:8px 0 0;color:var(--ink);">{{ selNode.name }}</h3>
+        <div style="display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:var(--cream);border-radius:999px;padding:5px 12px;"><span style="width:9px;height:9px;border-radius:50%;background:{{ selNode.color }};"></span><span style="font-size:12px;font-weight:700;color:var(--ink-soft);">{{ selNode.gen }}</span></div>
+        <p style="font-size:14px;line-height:1.65;color:var(--ink-soft);margin:16px 0 0;">{{ selNode.story }}</p>
+        <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Descendants</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin-top:5px;">{{ selNode.children }}</div></div>
+        <a href="Family Dashboard.dc.html" style="display:block;text-align:center;margin-top:20px;background:var(--green-700);color:#fff;padding:12px;border-radius:11px;font-size:13.5px;font-weight:700;">Explore the full member tree →</a>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isTreeOutline }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;">
+      <div style="font-size:12.5px;font-weight:600;color:var(--muted);text-align:center;padding:6px 0 14px;">Tap a name to read their story</div>
+      <sc-for list="{{ treeOutline }}" as="o" hint-placeholder-count="13">
+        <button onClick="{{ o.onClick }}" style="{{ o.style }}">
+          <span style="{{ o.dotStyle }}"></span>
+          <span style="flex:1;min-width:0;">
+            <span style="display:block;font-size:15px;font-weight:800;color:var(--ink);line-height:1.15;">{{ o.name }}</span>
+            <span style="display:block;font-size:9.5px;font-weight:700;letter-spacing:0.05em;color:var(--muted);margin-top:2px;">{{ o.sub }}</span>
+          </span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b9c2b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+      </sc-for>
+      <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:var(--muted);padding:8px 6px 4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 4v10a4 4 0 004 4h4M8 4H5m3 0h3"/></svg>Each step of indentation is one generation.</div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showTreePopup }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePopup }}" style="position:fixed;inset:0;z-index:60;background:rgba(16,30,20,0.55);backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease;">
+      <div onClick="{{ stopProp }}" style="background:#fff;border-radius:22px 22px 0 0;padding:20px 22px 28px;width:100%;max-width:520px;max-height:82vh;overflow-y:auto;box-shadow:0 -12px 40px rgba(0,0,0,0.3);animation:sheetUp .3s cubic-bezier(.2,.8,.3,1);">
+        <div style="display:flex;justify-content:center;margin-bottom:14px;"><span style="width:40px;height:5px;border-radius:3px;background:var(--line);"></span></div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+          <div style="font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:{{ selNode.color }};text-transform:uppercase;padding-top:3px;">{{ selNode.sub }}</div>
+          <button onClick="{{ closePopup }}" style="flex-shrink:0;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:27px;line-height:1.12;margin:6px 0 0;color:var(--ink);">{{ selNode.name }}</h3>
+        <div style="display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:var(--cream);border-radius:999px;padding:6px 13px;"><span style="width:9px;height:9px;border-radius:50%;background:{{ selNode.color }};"></span><span style="font-size:12.5px;font-weight:700;color:var(--ink-soft);">{{ selNode.gen }}</span></div>
+        <p style="font-size:15px;line-height:1.7;color:var(--ink-soft);margin:16px 0 0;">{{ selNode.story }}</p>
+        <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Descendants</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-top:5px;">{{ selNode.children }}</div></div>
+        <a href="Family Dashboard.dc.html" style="display:block;text-align:center;margin-top:20px;background:var(--green-700);color:#fff;padding:14px;border-radius:12px;font-size:14px;font-weight:700;">Explore the full member tree →</a>
+      </div>
+    </div>
+    </sc-if>
+    <p style="text-align:center;font-size:13px;color:var(--muted);margin-top:26px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">The six living clans — Babajide, Olorunfemi, Olanipekun, Bankole, Asaya and Adegbola — each hold many families. The complete tree of individual members lives inside the private family portal.</p>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============================ FOUNDATION ============================ -->
+<sc-if value="{{ isFoundation }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="background:var(--green-900);color:#fff;">
+    <div style="max-width:820px;margin:0 auto;padding:{{ headerPad }};text-align:center;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;">The Foundation</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ pageTitleSize }};line-height:1.1;margin:14px 0 0;">Built to keep the family strong</h1>
+      <p style="font-size:{{ leadSize }};line-height:1.65;color:#bcd2c2;margin:18px auto 0;max-width:620px;">The Olukotun Agura Family Foundation is a platform where matters of interest to a member or to the whole family are conceived, planned and carried out for the good of all.</p>
+    </div>
+  </div>
+
+  <section style="max-width:1000px;margin:0 auto;padding:{{ pad }};">
+    <!-- preamble + aim -->
+    <div style="display:grid;grid-template-columns:{{ col2 }};gap:18px;">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;">
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold-deep);text-transform:uppercase;">Who belongs</div>
+        <p style="font-size:15px;line-height:1.7;color:var(--ink-soft);margin:12px 0 0;">The Foundation is made up of all progenies male and female whose ancestry can be verifiably traced to Olukotun Agura of Okorun Quarters, Ikare-Akoko. Every such descendant is automatically a member, expected to play their part and entitled to the privileges of the family.</p>
+      </div>
+      <div style="background:var(--green-800);border:1px solid rgba(255,255,255,0.06);border-radius:18px;padding:26px;color:#dce8df;">
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;">Our aim</div>
+        <p style="font-family:'Fraunces',serif;font-weight:400;font-size:19px;line-height:1.5;color:#eef4f0;margin:12px 0 0;">To exist as a viable platform where the issues that matter to a member, or to the family as a whole, are conceptualised, planned and implemented for the overall development of the family.</p>
+      </div>
+    </div>
+
+    <!-- objectives -->
+    <div style="margin-top:44px;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:0;color:var(--ink);text-align:center;">Our objectives</h2>
+      <div style="display:grid;grid-template-columns:{{ col2 }};gap:14px;margin-top:24px;">
+        <sc-for list="{{ objectives }}" as="o" hint-placeholder-count="8">
+          <div style="background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px;display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:34px;height:34px;flex-shrink:0;border-radius:10px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:15px;">{{ o.n }}</div>
+            <div><h3 style="margin:0;font-size:15px;font-weight:800;color:var(--ink);">{{ o.title }}</h3><p style="margin:5px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-soft);">{{ o.body }}</p></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- empowerment -->
+    <div style="margin-top:52px;">
+      <div style="text-align:center;max-width:600px;margin:0 auto;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold-deep);text-transform:uppercase;">Empowerment programmes</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:12px 0 0;color:var(--ink);">Helping one another rise</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ col2 }};gap:16px;margin-top:24px;">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--gold-soft);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"></path></svg></div>
+          <h3 style="margin:14px 0 6px;font-size:17px;font-weight:800;color:var(--ink);">Educational support</h3>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">Assistance with training and education costs for eligible family members — so that no child of the family is held back for want of school fees.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></div>
+          <h3 style="margin:14px 0 6px;font-size:17px;font-weight:800;color:var(--ink);">Business expansion</h3>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft);">Support for growing family businesses — additional working capital, machinery, and the means to expand and employ.</p>
+        </div>
+      </div>
+      <div style="background:var(--cream-2);border:1px dashed #d8ccae;border-radius:14px;padding:16px 20px;margin-top:16px;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">At inception these programmes are restricted to verified family members, who are properly assessed before support is given. As the family purse grows, they may be extended to the wider community and the less privileged.</div>
+    </div>
+
+    <!-- projects + funding -->
+    <div style="display:grid;grid-template-columns:{{ col2 }};gap:18px;margin-top:44px;">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;">
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin:0;color:var(--ink);">Family projects</h3>
+        <p style="font-size:13.5px;color:var(--muted);margin:6px 0 14px;">As the Foundation grows, we hope to take on:</p>
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:var(--ink-soft);"><span style="width:22px;height:22px;flex-shrink:0;border-radius:7px;background:var(--green-050);color:var(--green-700);display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"></path></svg></span>{{ p }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background:var(--green-900);border-radius:18px;padding:26px;color:#dce8df;">
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin:0;color:#fff;">Funding &amp; the family purse</h3>
+        <p style="font-size:14px;line-height:1.7;color:#bcd2c2;margin:12px 0 0;">The Foundation is built on a shared purse, raised through voluntary contributions from all members and supported by donations from friends. This capital is invested, and its proceeds fund the empowerment programmes over time. A base amount is always preserved, and where urgent needs arise, additional support can be raised to meet them.</p>
+        
+      </div>
+    </div>
+
+    <!-- governance -->
+    <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;margin-top:18px;">
+      <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin:0;color:var(--ink);">Governance</h3>
+      <p style="font-size:14.5px;line-height:1.7;color:var(--ink-soft);margin:12px 0 0;">The Foundation is to be properly registered as an NGO, guided by a board that pilots its affairs. The board is chaired by the family Olori-ebi (head) usually the eldest, or a chairman nominated by the elders supported by a vice-chairman, with two members appointed from each family clan and ratified by the family head and the general meeting.</p>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============================ MEMBERSHIP ============================ -->
+<sc-if value="{{ isMembership }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="background:var(--green-900);color:#fff;">
+    <div style="max-width:820px;margin:0 auto;padding:{{ headerPad }};text-align:center;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;">Membership</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:500;font-size:{{ pageTitleSize }};line-height:1.1;margin:14px 0 0;">You already belong</h1>
+      <p style="font-size:{{ leadSize }};line-height:1.65;color:#bcd2c2;margin:18px auto 0;max-width:600px;">If your ancestry can be traced to Olukotun Agura of Okorun Quarters, Ikare-Akoko, you are already family — at home or in the diaspora, male or female, of every generation.</p>
+    </div>
+  </div>
+
+  <section style="max-width:1000px;margin:0 auto;padding:{{ pad }};">
+    <!-- steps -->
+    <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:0;color:var(--ink);text-align:center;">How joining the register works</h2>
+    <div style="display:grid;grid-template-columns:{{ col3 }};gap:16px;margin-top:24px;">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--gold);color:#3a2b08;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:17px;">1</div>
+        <h3 style="margin:14px 0 6px;font-size:16px;font-weight:800;color:var(--ink);">Your clan verifies you</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">A clan head or branch admin confirms your lineage and where you sit in the family tree.</p>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--gold);color:#3a2b08;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:17px;">2</div>
+        <h3 style="margin:14px 0 6px;font-size:16px;font-weight:800;color:var(--ink);">You join the register</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">Once approved, you are added to the family register and take your place on the living tree.</p>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--gold);color:#3a2b08;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:17px;">3</div>
+        <h3 style="margin:14px 0 6px;font-size:16px;font-weight:800;color:var(--ink);">You gain the portal</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft);">Access the private member portal — the directory, the tree, celebrations, welfare and more.</p>
+      </div>
+    </div>
+
+    <!-- what members can do -->
+    <div style="margin-top:52px;text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:var(--gold-deep);text-transform:uppercase;">Inside the portal</div>
+      <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:{{ h3Size }};margin:12px 0 0;color:var(--ink);">What members can do</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ col3 }};gap:16px;margin-top:24px;">
+      <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;">
+          <div style="width:46px;height:46px;border-radius:13px;background:{{ f.bg }};display:flex;align-items:center;justify-content:center;color:{{ f.fg }};"><span style="width:23px;height:23px;display:block;" ref="{{ f.iconRef }}"></span></div>
+          <h3 style="margin:14px 0 5px;font-size:16px;font-weight:800;color:var(--ink);">{{ f.title }}</h3>
+          <p style="margin:0;font-size:13px;line-height:1.55;color:var(--ink-soft);">{{ f.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- CTA / contact -->
+    <div style="display:grid;grid-template-columns:{{ col2 }};gap:16px;margin-top:44px;">
+      <div style="background:linear-gradient(135deg,#173d29,#2d6a4f);border-radius:20px;padding:30px;color:#dfeee6;">
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:0;color:#fff;">Already a member?</h3>
+        <p style="font-size:14px;line-height:1.6;margin:10px 0 20px;color:#c3ddcd;">Sign in to your portal to reach your relatives, celebrate together, and keep your record up to date.</p>
+        <a href="Family Dashboard.dc.html" style="display:inline-block;background:var(--gold);color:#3a2b08;padding:13px 24px;border-radius:999px;font-size:14.5px;font-weight:700;">Member sign in →</a>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;">
+        <h3 style="font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:0;color:var(--ink);">New to the register?</h3>
+        <p style="font-size:14px;line-height:1.6;margin:10px 0 18px;color:var(--ink-soft);">Reach out to your clan head, or contact the Foundation Secretariat and we will help connect you to your branch.</p>
+        <div style="display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:var(--ink-soft);">
+          <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M4 7l8 5 8-5"></path></svg>secretariat@olukotunagura.ng</div>
+          <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-10a7 7 0 0114 0c0 4.8-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>Foundation Secretariat, Ikare-Akoko, Ondo State</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:var(--green-900);color:#a9c2b2;">
+  <div style="max-width:1120px;margin:0 auto;padding:52px 22px 28px;">
+    <div style="display:grid;grid-template-columns:{{ footCol }};gap:28px;">
+      <div style="grid-column:{{ footBrandSpan }};">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <svg width="34" height="34" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#c79a3a" stroke-width="2"></circle><path d="M24 39 V21" stroke="#fff" stroke-width="2" stroke-linecap="round"></path><circle cx="24" cy="12" r="4" fill="#74c69d"></circle><circle cx="15" cy="17" r="3.4" fill="#40916c"></circle><circle cx="33" cy="19" r="3.4" fill="#40916c"></circle></svg>
+          <div style="line-height:1.15;"><div style="font-size:14px;font-weight:800;color:#fff;">Olukotun Agura</div><div style="font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:var(--gold);">FAMILY FOUNDATION</div></div>
+        </div>
+        <p style="font-size:13px;line-height:1.6;margin:16px 0 0;max-width:280px;">United by our heritage, stronger for our future. Preserving the lineage of Olukotun Agura of Okorun Quarters, Ikare-Akoko.</p>
+        <div style="display:flex;gap:5px;margin-top:18px;"><span style="width:34px;height:5px;border-radius:3px;background:#008751;"></span><span style="width:34px;height:5px;border-radius:3px;background:#fff;"></span><span style="width:34px;height:5px;border-radius:3px;background:#008751;"></span></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#7fa08c;text-transform:uppercase;">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px;font-size:13.5px;align-items:flex-start;">
+          <button onClick="{{ goHome }}" style="background:none;border:none;color:#c3d6ca;cursor:pointer;padding:0;font:inherit;">Home</button>
+          <button onClick="{{ goHistory }}" style="background:none;border:none;color:#c3d6ca;cursor:pointer;padding:0;font:inherit;">Our History</button>
+          <button onClick="{{ goTree }}" style="background:none;border:none;color:#c3d6ca;cursor:pointer;padding:0;font:inherit;">Family Tree</button>
+          <button onClick="{{ goFoundation }}" style="background:none;border:none;color:#c3d6ca;cursor:pointer;padding:0;font:inherit;">The Foundation</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#7fa08c;text-transform:uppercase;">Members</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px;font-size:13.5px;align-items:flex-start;">
+          <button onClick="{{ goMembership }}" style="background:none;border:none;color:#c3d6ca;cursor:pointer;padding:0;font:inherit;">Membership</button>
+          <a href="Family Dashboard.dc.html" style="color:#c3d6ca;">Sign in</a>
+          <a href="Family Dashboard.dc.html" style="color:#c3d6ca;">The portal</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#7fa08c;text-transform:uppercase;">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px;font-size:13.5px;color:#c3d6ca;"><div>Foundation Secretariat</div><div>Ikare-Akoko, Ondo State</div><div>secretariat@olukotunagura.ng</div></div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:36px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#7fa08c;">
+      <div>© 2026 Olukotun Agura Family Foundation.</div>
+      <button onClick="{{ goHome }}" style="background:none;border:none;color:#7fa08c;cursor:pointer;font:inherit;">Back to top ↑</button>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:880}}">
+class Component extends DCLogic {
+  state = { page: 'home', menuOpen: false, w: 1200, selected: 'olukotun', popupOpen: false };
+
+  componentDidMount() {
+    this._measure = () => {
+      const el = this._rootEl;
+      if (!el) return;
+      const w = el.clientWidth || (el.getBoundingClientRect().width) || window.innerWidth;
+      if (w && Math.abs(w - this.state.w) > 4) this.setState({ w });
+    };
+    try { this._ro = new ResizeObserver(this._measure); if (this._rootEl) this._ro.observe(this._rootEl); } catch (e) {}
+    window.addEventListener('resize', this._measure);
+    this._measure();
+    setTimeout(this._measure, 80);
+  }
+  componentDidUpdate() {
+    if (this._prevPage !== this.state.page) {
+      this._prevPage = this.state.page;
+      try { window.scrollTo(0, 0); } catch (e) {}
+      if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+      let el = this._rootEl;
+      while (el) { if (el.scrollTop) el.scrollTop = 0; el = el.parentElement; }
+    }
+  }
+  componentWillUnmount() { if (this._ro) this._ro.disconnect(); if (this._measure) window.removeEventListener('resize', this._measure); }
+
+  navLinks = [
+    { label: 'Home', page: 'home' },
+    { label: 'Our History', page: 'history' },
+    { label: 'Family Tree', page: 'tree' },
+    { label: 'The Foundation', page: 'foundation' },
+    { label: 'Membership', page: 'membership' },
+  ];
+
+  names = ['Olukotun','Amokele','Obeeje','Apobiruesin','Odubado','Olorunduyi (Daniel-Oliku)','Babajide','Olorunfemi','Olanipekun','Bankole','Asaya','Adegbola'];
+
+  objectives = [
+    { n:'1', title:'A rallying platform', body:'To bring all members together to articulate matters of individual and collective interest.' },
+    { n:'2', title:'Unity & oneness', body:'To foster unity, familiarity and friendliness among the family, at home and in the diaspora.' },
+    { n:'3', title:'Represent & protect', body:'To represent and protect the interest of members in communal and official affairs.' },
+    { n:'4', title:'A developmental agenda', body:'To continually chart ways and means for the steady progress of the family.' },
+    { n:'5', title:'Harmonised heritage', body:'To harmonise our historical facts, family tree and records so everyone shares one history.' },
+    { n:'6', title:'Peace & welfare', body:'Peaceful conflict resolution, and the welfare, monitoring and support of family members.' },
+    { n:'7', title:'Prudent stewardship', body:'An organised, acceptable framework for the judicious channelling of funds and resources.' },
+    { n:'8', title:'Honest self-assessment', body:'Regular assessment of the progress of the family and of its members.' },
+  ];
+
+  projects = [
+    'Renovation of schools within the community',
+    'Educational scholarships for the less privileged',
+    'Provision of boreholes for clean water',
+    'A family museum to preserve our heritage',
+    'Other projects as the family may decide from time to time',
+  ];
+
+  featureDefs = [
+    { title:'Trace how you\u2019re related', body:'Open any member and see exactly how you connect \u2014 cousin, uncle, in-law \u2014 back to a common ancestor.', bg:'#e3ebf4', fg:'#22405f', icon:'link' },
+    { title:'Find & contact relatives', body:'Search the directory by clan, generation or location, and reach family by call, message or email.', bg:'#f6eccf', fg:'#a8791f', icon:'people' },
+    { title:'Celebrate together', body:'Birthdays and anniversaries appear automatically, with greeting walls and gentle reminders.', bg:'#f7ebd4', fg:'#c98a1e', icon:'cake' },
+    { title:'Honour those passed', body:'Remembrance pages and tribute walls keep the memory of departed family alive each year.', bg:'#e7edf0', fg:'#425a68', icon:'heart' },
+    { title:'Support one another', body:'Raise or answer welfare and work requests, reviewed with care before they are shared.', bg:'#e0efe8', fg:'#1f6f54', icon:'purse' },
+    { title:'Explore the living tree', body:'Walk the full family tree of individual members, updated as the family grows.', bg:'#eaf3ec', fg:'#2d6a4f', icon:'tree' },
+  ];
+
+  icons = {
+    tree:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6 8.4v3a2 2 0 002 2h8a2 2 0 002-2v-3M12 13.4v2.2"/></svg>',
+    link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><path d="M12 22V12M12 12L7 8M12 12l5-4M12 8V3"/><circle cx="12" cy="3" r="1.6"/><circle cx="7" cy="8" r="1.6"/><circle cx="17" cy="8" r="1.6"/></svg>',
+    people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0M16 6.2a3 3 0 010 5.6M17 13.5c2 .6 3.5 2.3 3.5 4.5"/></svg>',
+    cake:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><path d="M5 21V12.5a2 2 0 012-2h10a2 2 0 012 2V21zM4 21h16M12 10.5V7M12 7a1.7 1.7 0 11-1.5-2.5C11 3.5 12 2.5 12 2.5s1 1 1.5 2C14 5.5 13 7 12 7z"/></svg>',
+    heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>',
+    purse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="23" height="23"><path d="M11 13l-2-1.8a2.3 2.3 0 113.2-3.2l.8.8.8-.8A2.3 2.3 0 0117 11"/><rect x="3" y="12" width="18" height="8" rx="2"/></svg>',
+  };
+
+  treePeople = [
+    { id:'oshodi', name:'Oshodi', sub:'ANCESTRAL HIGH CHIEF', gen:'The Oshodi line', color:'#7a5a2e', x:8, y:300,
+      story:'One of the high chiefs who followed the Owa-Ale from Enu-Owa Quarters in Ile-Ife to establish Ikare land. The Oshodi line \u2014 Tunolase, Olukotun, Opa and Agbari \u2014 begins here.', children:'Olukotun and the Oshodi line' },
+    { id:'olukotun', name:'Olukotun (Agura)', sub:'THE WARLORD \u00b7 GENERALISSIMO', gen:'1st generation', color:'#c79a3a', x:176, y:300,
+      story:'As the family served as Generalissimo \u2014 responsible for the security of Ikare \u2014 Olukotun distinguished himself as a courageous and formidable warlord, always ready to confront invaders and protect his people.', children:'Amokele' },
+    { id:'amokele', name:'Amokele', sub:'THE MOUNTAIN DEFENDER', gen:'2nd generation', color:'#1f5138', x:346, y:318,
+      story:'His praise-name means \u201cthe one who makes the mountain hard to breach.\u201d Through the Yoruba wars and the slave-raid era he led the defence of the mountain settlements, posting scouts and guards to keep Ikare secure \u2014 though many of his warrior sons fell in battle.', children:'Obeeje, Apobiruesin' },
+    { id:'obeeje', name:'Obeeje', sub:'THE FEARED WARRIOR', gen:'3rd generation', color:'#b5651d', x:518, y:236,
+      story:'So great was his fame that the whole family became popularly known as the Obeeje Family. Remembered in the proverb \u201cObeje, abeno mo omode o ju.\u201d He fathered Olorunduyi and Odubado.', children:'Olorunduyi, Odubado' },
+    { id:'apobiruesin', name:'Apobiruesin', sub:'FEARLESS WARRIOR', gen:'3rd generation', color:'#7c5295', x:518, y:548,
+      story:'A son of Amokele who, alongside his brother Obeeje, preserved the warrior tradition of the family in his time.', children:'\u2014' },
+    { id:'olorunduyi', name:'Olorunduyi', sub:'DANIEL-OLIKU \u00b7 BAPTISED 1912', gen:'4th generation', color:'#2f6f8f', x:696, y:120,
+      story:'On 15 May 1912 he was baptised Daniel Olorunduyi by Rev. H. F. Gane of the CMS Church, Ikare \u2014 a turning point that blended the family\u2019s warrior heritage with a new Christian faith. He remained a respected hunter and warrior all his life.', children:'Babajide, Olorunfemi, Olanipekun' },
+    { id:'odubado', name:'Odubado', sub:'ELDER OF THE LINE', gen:'4th generation', color:'#a23b3b', x:696, y:384,
+      story:'Son of Obeeje and ancestor of three of the family\u2019s living clans \u2014 Bankole, Asaya and Adegbola.', children:'Bankole, Asaya, Adegbola' },
+    { id:'babajide', name:'Babajide', sub:'FAMILY CLAN', gen:'5th generation', color:'#1f6f54', x:880, y:44,
+      story:'A clan of the Olorunduyi line, known today for its educators and professionals at home and across the diaspora.', children:'A living family clan' },
+    { id:'olorunfemi', name:'Olorunfemi', sub:'FAMILY CLAN', gen:'5th generation', color:'#c98a1e', x:880, y:112,
+      story:'A clan of the Olorunduyi line \u2014 home to lawyers, doctors, engineers and entrepreneurs.', children:'A living family clan' },
+    { id:'olanipekun', name:'Olanipekun', sub:'FAMILY CLAN', gen:'5th generation', color:'#486fb0', x:880, y:180,
+      story:'A widely dispersed clan of the Olorunduyi line with strong academic roots.', children:'A living family clan' },
+    { id:'bankole', name:'Bankole', sub:'FAMILY CLAN', gen:'5th generation', color:'#6a8f3c', x:880, y:308,
+      story:'A clan of the Odubado line with deep roots in trade and farming around Ikare-Akoko.', children:'A living family clan' },
+    { id:'asaya', name:'Asaya', sub:'FAMILY CLAN', gen:'5th generation', color:'#8a5a8f', x:880, y:376,
+      story:'A close-knit clan of the Odubado line.', children:'A living family clan' },
+    { id:'adegbola', name:'Adegbola', sub:'FAMILY CLAN', gen:'5th generation', color:'#3f8f8f', x:880, y:444,
+      story:'The youngest documented clan of the Odubado line, still being carefully mapped.', children:'A living family clan' },
+  ];
+  treeParent = { olukotun:'oshodi', amokele:'olukotun', obeeje:'amokele', apobiruesin:'amokele', olorunduyi:'obeeje', odubado:'obeeje', babajide:'olorunduyi', olorunfemi:'olorunduyi', olanipekun:'olorunduyi', bankole:'odubado', asaya:'odubado', adegbola:'odubado' };
+  outlineOrder = ['oshodi','olukotun','amokele','obeeje','olorunduyi','babajide','olorunfemi','olanipekun','odubado','bankole','asaya','adegbola','apobiruesin'];
+
+  buildTree() {
+    const NW = 152, NH = 48;
+    const byId = {}; this.treePeople.forEach(p => byId[p.id] = p);
+    const sel = this.state.selected;
+    const path = new Set([sel]);
+    let cur = sel;
+    while (this.treeParent[cur]) { cur = this.treeParent[cur]; path.add(cur); }
+    const treeNodes = this.treePeople.map(p => {
+      const isSel = p.id === sel;
+      const inPath = path.has(p.id) && !isSel;
+      const border = isSel ? `2.5px solid ${p.color}` : inPath ? `2px solid ${p.color}` : `1.5px solid ${p.color}55`;
+      const shadow = isSel ? '0 10px 26px rgba(16,49,31,0.20)' : inPath ? '0 4px 14px rgba(199,154,58,0.22)' : '0 1px 3px rgba(0,0,0,0.05)';
+      const bg = inPath ? '#fffdf6' : '#fff';
+      return { id: p.id, name: p.name, sub: p.sub, fg: p.color, subfg: '#8a9187',
+        onClick: () => this.setState({ selected: p.id, popupOpen: true }),
+        style: `position:absolute;left:${p.x}px;top:${p.y}px;width:${NW}px;min-height:${NH}px;text-align:left;cursor:pointer;background:${bg};border:${border};border-radius:12px;padding:8px 12px;box-shadow:${shadow};transition:box-shadow .18s,transform .18s,border-color .18s;transform:${isSel?'translateY(-2px)':'none'};` };
+    });
+    const treeLinks = Object.keys(this.treeParent).map(childId => {
+      const c = byId[childId], p = byId[this.treeParent[childId]];
+      const px = p.x + NW, py = p.y + NH / 2, cx = c.x, cy = c.y + NH / 2, mx = (px + cx) / 2;
+      const active = path.has(childId);
+      return { d: `M${px},${py} C${mx},${py} ${mx},${cy} ${cx},${cy}`, stroke: active ? '#c79a3a' : '#cdbf9f', op: active ? 1 : 0.5 };
+    });
+    const depthOf = (id) => { let d = 0, c = id; while (this.treeParent[c]) { c = this.treeParent[c]; d++; } return d; };
+    const treeOutline = this.outlineOrder.map(id => {
+      const p = byId[id], depth = depthOf(id), isSel = id === sel, indent = depth * 15;
+      return {
+        name: p.name, sub: p.sub,
+        onClick: () => this.setState({ selected: id, popupOpen: true }),
+        style: `display:flex;align-items:center;gap:12px;width:calc(100% - ${indent}px);margin-left:${indent}px;text-align:left;cursor:pointer;background:${isSel ? '#fffaf0' : '#fff'};border:1px solid ${isSel ? p.color : 'var(--line)'};border-left:4px solid ${p.color};border-radius:12px;padding:12px 14px;margin-bottom:8px;`,
+        dotStyle: `width:11px;height:11px;border-radius:50%;flex-shrink:0;background:${p.color};`,
+      };
+    });
+    return { treeNodes, treeLinks, treeOutline, selNode: byId[sel] || this.treePeople[0] };
+  }
+
+  go(page) { this.setState({ page, menuOpen: false }); }
+
+  renderVals() {
+    const w = this.state.w, isMobile = w < 760, isTablet = w < 1040;
+    const page = this.state.page;
+
+    const rootRef = (el) => { if (el && el !== this._rootEl) { this._rootEl = el; if (this._ro) { this._ro.disconnect(); this._ro.observe(el); } } };
+
+    const linkStyle = (active) => `padding:9px 13px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;border:none;background:${active?'var(--green-050)':'transparent'};color:${active?'var(--green-700)':'var(--ink-soft)'};`;
+    const mLinkStyle = (active) => `display:block;width:100%;text-align:left;padding:14px 10px;border:none;border-bottom:1px solid var(--line);background:none;font-size:16px;font-weight:600;cursor:pointer;color:${active?'var(--green-700)':'var(--ink)'};`;
+    const navLinks = this.navLinks.map(n => ({ label: n.label, onClick: () => this.go(n.page), style: linkStyle(page === n.page), mStyle: mLinkStyle(page === n.page) }));
+
+    const features = this.featureDefs.map(f => ({ ...f, iconRef: (el) => { if (el && el.innerHTML !== this.icons[f.icon]) el.innerHTML = this.icons[f.icon]; } }));
+
+    return {
+      rootRef,
+      isHome: page === 'home', isHistory: page === 'history', isTree: page === 'tree', isFoundation: page === 'foundation', isMembership: page === 'membership',
+      isMobile, isDesktopNav: !isMobile, showMobileMenu: isMobile && this.state.menuOpen,
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+      navLinks,
+      goHome: () => this.go('home'), goHistory: () => this.go('history'), goTree: () => this.go('tree'), goFoundation: () => this.go('foundation'), goMembership: () => this.go('membership'),
+      names: this.names, objectives: this.objectives, projects: this.projects, features,
+      ...this.buildTree(),
+      // responsive tokens
+      heroPad: isMobile ? '52px 20px 60px' : '76px 26px 88px',
+      headerPad: isMobile ? '48px 20px' : '64px 26px',
+      pad: isMobile ? '54px 20px' : '84px 26px',
+      padBottom: isMobile ? '60px' : '90px',
+      pageTitleSize: isMobile ? '32px' : '46px',
+      h1Size: isMobile ? '33px' : '55px',
+      h2Size: isMobile ? '26px' : '38px',
+      h3Size: isMobile ? '22px' : '28px',
+      leadSize: isMobile ? '15.5px' : '18px',
+      quoteSize: isMobile ? '20px' : '26px',
+      col2: isMobile ? '1fr' : '1fr 1fr',
+      col3: isMobile ? '1fr' : isTablet ? '1fr 1fr' : 'repeat(3,1fr)',
+      col4: isMobile ? '1fr 1fr' : 'repeat(4,1fr)',
+      treeCol: (isMobile || isTablet) ? '1fr' : '1fr 320px',
+      isTreeSide: !(isMobile || isTablet),
+      isTreeOutline: (isMobile || isTablet),
+      showTreePopup: (isMobile || isTablet) && this.state.popupOpen,
+      closePopup: () => this.setState({ popupOpen: false }),
+      stopProp: (e) => { if (e) e.stopPropagation(); },
+      footCol: isMobile ? '1fr 1fr' : '1.5fr 1fr 1fr 1fr',
+      footBrandSpan: isMobile ? '1 / -1' : 'auto',
+    };
+  }
+}
+</script>
+</body>
+</html>
